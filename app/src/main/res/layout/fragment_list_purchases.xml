@@ -38,7 +38,7 @@
         app:layout_constraintTop_toBottomOf="@+id/cardListPurchases" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
+        android:id="@+id/btnAddNewPurchase"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/AZUL_STEEL_BLUE"
