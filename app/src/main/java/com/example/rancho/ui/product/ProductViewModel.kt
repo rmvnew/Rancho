@@ -4,25 +4,33 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class ProductViewModel:ViewModel() {
+class ProductViewModel : ViewModel() {
 
 
-    var nameButtonAction:String? = null
-    var updateProductActive:Boolean? = null
+    var nameButtonPurchaseAction: String? = null
+    var updatePurchaseActive: Boolean? = null
+    var nameButtonItemAction: String? = null
+    var updateItemActive: Boolean? = null
 
 
-    private var mUpdateProduct = MutableLiveData<Boolean>()
-    val updateProduct:LiveData<Boolean> = mUpdateProduct
+    private var mUpdatePurchase = MutableLiveData<Boolean>()
+    val updatePurchase: LiveData<Boolean> = mUpdatePurchase
+
+    private var mUpdateItem = MutableLiveData<Boolean>()
+    val updateItem: LiveData<Boolean> = mUpdateItem
 
 
+    fun setUpdateItem(bol:Boolean){
+        mUpdateItem.value = bol
+    }
 
-    fun setUpdateMode(bol:Boolean){
-        mUpdateProduct.value = bol
+    fun setUpdatePurchaseMode(bol: Boolean) {
+        mUpdatePurchase.value = bol
     }
 
 
-    fun setNameButtonAction(bol:Boolean):String{
-        return when(bol){
+    fun setNameButtonAction(bol: Boolean): String {
+        return when (bol) {
             true -> "Atualizar"
             else -> "Registrar"
         }

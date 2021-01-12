@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.example.rancho.databinding.FragmentAddProductBinding
 import com.example.rancho.util.ViewModelInstance
 
@@ -42,15 +41,35 @@ class AddProductFragment : Fragment() {
 
 
     private fun observe(){
-        productViewModel.updateProduct.observe(viewLifecycleOwner, Observer {
-            productViewModel.nameButtonAction = productViewModel.setNameButtonAction(it)
-            productViewModel.updateProductActive = it
+
+        /**
+         * update purchase
+         */
+
+        productViewModel.updatePurchase.observe(viewLifecycleOwner, Observer {
+            productViewModel.nameButtonPurchaseAction = productViewModel.setNameButtonAction(it)
+            productViewModel.updatePurchaseActive = it
             if(it == false) {
-                binding.btnProductDelete.visibility = View.GONE
+                binding.btnPurchaseDelete.visibility = View.GONE
             }else{
-                binding.btnProductDelete.visibility = View.VISIBLE
+                binding.btnPurchaseDelete.visibility = View.VISIBLE
             }
         })
+
+
+        /**
+         * update item
+         */
+
+        productViewModel.updateItem.observe(viewLifecycleOwner, Observer {
+            productViewModel.nameButtonItemAction = productViewModel.setNameButtonAction(it)+" Item"
+            if(it == false){
+                binding.btnItemDelete.visibility = View.GONE
+            }else{
+                binding.btnItemDelete.visibility = View.VISIBLE
+            }
+        })
+
     }
 
 

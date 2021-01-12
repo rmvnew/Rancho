@@ -8,6 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="button_red">#CC2222</color>
+    <color name="button_red_dark">#882222</color>
     <color name="Azul_escuro">#191970</color>
     <color name="Orange">#FFA500</color>
     <color name="royalBlue">#4169E1</color>

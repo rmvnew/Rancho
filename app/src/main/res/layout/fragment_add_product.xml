@@ -102,6 +102,7 @@
                             android:id="@+id/editProductValue"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:digits="0123456789.,"
                             android:hint="Valor"
                             android:inputType="numberDecimal"
                             android:textColor="@color/black"
@@ -121,7 +122,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/infoProductValue" />
 
                     <Button
-                        android:id="@+id/btnProductAction"
+                        android:id="@+id/btnAddProduct"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -130,26 +131,25 @@
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="16dp"
                         android:layout_marginRight="16dp"
-                        android:text="@{productViewModel.nameButtonAction}"
+                        android:text="@{productViewModel.nameButtonItemAction}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/cbProductDone" />
 
                     <Button
-                        android:id="@+id/btnProductDelete"
+                        android:id="@+id/btnItemDelete"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginLeft="16dp"
                         android:layout_marginTop="16dp"
-                        android:visibility="gone"
-                        android:backgroundTint="@color/button_red"
+                        android:backgroundTint="@color/button_red_dark"
                         android:layout_marginEnd="16dp"
                         android:layout_marginRight="16dp"
-                        android:text="Delete"
+                        android:text="Delete item"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/btnProductAction" />
+                        app:layout_constraintTop_toBottomOf="@+id/btnAddProduct" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recyclerProduct"
@@ -160,11 +160,9 @@
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="16dp"
                         android:layout_marginRight="16dp"
-                        android:layout_marginBottom="16dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/btnProductDelete" />
+                        app:layout_constraintTop_toBottomOf="@+id/btnItemDelete" />
 
                     <ImageView
                         android:id="@+id/imageView"
@@ -175,6 +173,39 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
+
+                    <Button
+                        android:id="@+id/btnSavePurchase"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:backgroundTint="@color/AZUL_STEEL_BLUE2"
+                        android:text="@{productViewModel.nameButtonPurchaseAction}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/recyclerProduct" />
+
+
+                    <Button
+                        android:id="@+id/btnPurchaseDelete"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="16dp"
+                        android:backgroundTint="@color/button_red_dark"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginRight="16dp"
+                        android:text="Delete item"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/btnSavePurchase" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>

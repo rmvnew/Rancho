@@ -1,7 +1,5 @@
 package com.example.rancho.ui.puchases
 
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -42,7 +40,8 @@ class ListPurchasesFragment : Fragment() {
         ViewModelInstance.setProductViewModel(productViewModel)
         binding.btnAddNewPurchase.setOnClickListener {
             findNavController().navigate(R.id.action_listPurchasesFragment_to_addProductFragment)
-            productViewModel.setUpdateMode(false)
+            productViewModel.setUpdatePurchaseMode(false)
+            productViewModel.setUpdateItem(false)
         }
 
     }
