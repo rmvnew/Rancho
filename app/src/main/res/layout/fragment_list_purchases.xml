@@ -24,6 +24,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerShopp"
         android:layout_width="388dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
@@ -42,13 +43,49 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/AZUL_STEEL_BLUE"
-        android:tint="@color/BRANCO"
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
         android:layout_marginBottom="32dp"
         android:clickable="true"
         android:src="@drawable/ic_baseline_add_24"
+        app:tint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnSearchShopping"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginBottom="24dp"
+        android:backgroundTint="@color/AZUL_STEEL_BLUE"
+        android:clickable="true"
+        android:src="@drawable/ic_baseline_date_range_24"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tint="@color/white" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Adicionar"
+        android:textColor="@color/white"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toTopOf="@+id/btnAddNewPurchase"
+        app:layout_constraintEnd_toEndOf="@+id/btnAddNewPurchase"
+        app:layout_constraintStart_toStartOf="@+id/btnAddNewPurchase" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Buscar"
+        android:textColor="@color/white"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toTopOf="@+id/btnSearchShopping"
+        app:layout_constraintEnd_toEndOf="@+id/btnSearchShopping"
+        app:layout_constraintStart_toStartOf="@+id/btnSearchShopping" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,15 +5,11 @@ import androidx.room.PrimaryKey
 import java.io.Serializable
 
 @Entity
-class Product(
-
-    val id_shopping:Int,
-    val productName:String,
-    val productQuantity: Int,
-    val productValue:Double,
-    val productDone:Boolean
-
-):Serializable{
+class Shopping(
+    val dateShopping : String,
+    val timeShopping : String,
+    val active:Boolean
+):Serializable {
     @PrimaryKey(autoGenerate = true)
     var id:Int = 0
 }
