@@ -8,7 +8,7 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/materialCardView"
-        android:backgroundTint="@color/CINZA_CLARO"
+        android:backgroundTint="@color/cardview_dark_background"
         android:layout_marginBottom="5dp"
         android:layout_marginRight="25dp"
         android:layout_marginLeft="25dp"
@@ -33,6 +33,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginLeft="32dp"
                 android:layout_marginTop="5dp"
+                android:textColor="@color/AZUL_DEEP_SKYE"
                 android:text="Data: "
                 android:textStyle="bold|italic"
                 app:layout_constraintStart_toStartOf="parent"
@@ -45,6 +46,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
                 android:textStyle="bold|italic"
+                android:textColor="@color/white"
                 android:text="TextView"
                 app:layout_constraintBaseline_toBaselineOf="@+id/infoDatePurchase"
                 app:layout_constraintStart_toEndOf="@+id/infoDatePurchase" />
@@ -56,6 +58,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginLeft="32dp"
                 android:layout_marginTop="4dp"
+                android:textColor="@color/AZUL_DEEP_SKYE"
                 android:text="Hora: "
                 android:textStyle="bold|italic"
                 app:layout_constraintStart_toStartOf="parent"
@@ -68,6 +71,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
                 android:textStyle="bold|italic"
+                android:textColor="@color/white"
                 android:text="TextView"
                 app:layout_constraintBaseline_toBaselineOf="@+id/infoTime"
                 app:layout_constraintStart_toEndOf="@+id/infoTime" />
@@ -81,6 +85,7 @@
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="5dp"
                 android:textStyle="bold|italic"
+                android:textColor="@color/AZUL_DEEP_SKYE"
                 android:text="Ativo: "
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -91,6 +96,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold|italic"
+                android:textColor="@color/white"
                 android:text="TextView"
                 app:layout_constraintBaseline_toBaselineOf="@+id/infoActive"
                 app:layout_constraintStart_toEndOf="@+id/infoActive" />

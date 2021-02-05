@@ -54,6 +54,8 @@ class ListPurchasesFragment : Fragment() {
     private fun actions() {
 
         binding.apply {
+
+
             btnAddNewPurchase.setOnClickListener {
                 viewModel.saveNewPurchase(requireContext())
             }
@@ -104,6 +106,14 @@ class ListPurchasesFragment : Fragment() {
             } else {
                 callRecyclerView(it, SearchType.DATE)
 
+            }
+
+        })
+
+        viewModel.saved.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+
+            if(it){
+                callRecyclerView(null)
             }
 
         })

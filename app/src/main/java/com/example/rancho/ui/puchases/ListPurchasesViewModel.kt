@@ -15,7 +15,8 @@ class ListPurchasesViewModel : ViewModel() {
     private  var mDateOfPayment = MutableLiveData<String?>()
     val dateOfPayment : LiveData<String?> = mDateOfPayment
 
-
+    private var mSaved = MutableLiveData<Boolean>()
+    val saved : LiveData<Boolean> = mSaved
 
 
     fun saveNewPurchase(context: Context) {
@@ -28,7 +29,11 @@ class ListPurchasesViewModel : ViewModel() {
 
         GlobalScope.launch {
             ProductDatabase(context).getShoppingDao().addShopping(shop)
+
         }
+
+        Thread.sleep(1000)
+        mSaved.value = true
 
     }
 

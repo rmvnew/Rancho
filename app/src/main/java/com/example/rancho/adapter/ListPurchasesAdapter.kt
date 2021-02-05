@@ -14,6 +14,7 @@ class ListPurchasesAdapter() :
 
     fun setPurchaseList(list:List<Shopping>){
         this.purchaseList = list
+        notifyDataSetChanged()
     }
 
 
