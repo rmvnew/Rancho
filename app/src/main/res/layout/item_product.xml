@@ -27,20 +27,20 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/infoDate"
+                android:id="@+id/infoNameProduct"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginLeft="32dp"
                 android:layout_marginTop="5dp"
                 android:textColor="@color/AZUL_DEEP_SKYE"
-                android:text="Data: "
+                android:text="@string/product"
                 android:textStyle="bold|italic"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/txtDatePurchase"
+                android:id="@+id/txtNameProduct"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -48,24 +48,24 @@
                 android:textStyle="bold|italic"
                 android:textColor="@color/white"
                 android:text="TextView"
-                app:layout_constraintBaseline_toBaselineOf="@+id/infoDate"
-                app:layout_constraintStart_toEndOf="@+id/infoDate" />
+                app:layout_constraintBaseline_toBaselineOf="@+id/infoNameProduct"
+                app:layout_constraintStart_toEndOf="@+id/infoNameProduct" />
 
             <TextView
-                android:id="@+id/infoTime"
+                android:id="@+id/infoQuantity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginLeft="32dp"
                 android:layout_marginTop="4dp"
                 android:textColor="@color/AZUL_DEEP_SKYE"
-                android:text="Hora: "
+                android:text="@string/quantity"
                 android:textStyle="bold|italic"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/infoDate" />
+                app:layout_constraintTop_toBottomOf="@+id/infoNameProduct" />
 
             <TextView
-                android:id="@+id/txtTimePurchase"
+                android:id="@+id/txtQuantity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -73,11 +73,35 @@
                 android:textStyle="bold|italic"
                 android:textColor="@color/white"
                 android:text="TextView"
-                app:layout_constraintBaseline_toBaselineOf="@+id/infoTime"
-                app:layout_constraintStart_toEndOf="@+id/infoTime" />
+                app:layout_constraintBaseline_toBaselineOf="@+id/infoQuantity"
+                app:layout_constraintStart_toEndOf="@+id/infoQuantity" />
+
+            <TextView
+                android:id="@+id/infoValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginLeft="32dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/value"
+                android:textColor="@color/AZUL_DEEP_SKYE"
+                android:textStyle="bold|italic"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/infoQuantity" />
+
+            <TextView
+                android:id="@+id/txtValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold|italic"
+                android:textColor="@color/white"
+                android:text="TextView"
+                app:layout_constraintBaseline_toBaselineOf="@+id/infoValue"
+                app:layout_constraintStart_toEndOf="@+id/infoValue" />
+
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardStatusPurchase"
+                android:id="@+id/cardStatusProduct"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:layout_marginLeft="30dp"
@@ -89,14 +113,14 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/infoTime">
+                app:layout_constraintTop_toBottomOf="@+id/infoValue">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/txtStatusPurchase"
+                        android:id="@+id/txtStatusProduct"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical|center_horizontal"
@@ -112,6 +136,7 @@
 
 
             </com.google.android.material.card.MaterialCardView>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>

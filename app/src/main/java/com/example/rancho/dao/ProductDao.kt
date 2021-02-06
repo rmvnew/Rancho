@@ -13,8 +13,8 @@ interface ProductDao {
     @Insert
     suspend fun addProduct(prod:Product)
 
-    @Query("SELECT * FROM product ORDER BY id DESC")
-    suspend fun getAllProducts():List<Product>
+    @Query("SELECT * FROM product WHERE id_shopping = :thisId ORDER BY id DESC")
+    suspend fun getAllProducts(thisId:String):List<Product>
 
     @Update
     suspend fun updateProduct(prod: Product)

@@ -1,6 +1,5 @@
 package com.example.rancho.adapter
 
-import android.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.Navigation
@@ -37,36 +36,16 @@ class ListPurchasesAdapter() :
         var status = ""
 
         holder.binding.txtDatePurchase.text = purchaseList[position].dateShopping
-        holder.binding.txtTime.text = purchaseList[position].timeShopping
+        holder.binding.txtTimePurchase.text = purchaseList[position].timeShopping
         if(purchaseList[position].active){
             status = "Ativo"
         }else{
             status = "Inativo"
         }
-        holder.binding.txtActive.text = status
+        holder.binding.txtStatusPurchase.text = status
 
         holder.itemView.setOnClickListener {
 
-//            AlertDialog.Builder(it.context).apply {
-//                setTitle(purchaseList[position].dateShopping + " Selecionado!!")
-//                setMessage("Usar esse cliente ou editar?")
-//
-//                setPositiveButton("Usar") { _, _ ->
-//
-//                    Hawk.put("purchase", purchaseList[position])
-//
-//
-//                }
-//
-//                setNegativeButton("Editar") { _, _ ->
-//
-//                    Hawk.put("client", purchaseList[position])
-//                    val action = ListPurchasesFragmentDirections.actionListPurchasesFragmentToListProductFragment()
-//                    Navigation.findNavController(it).navigate(action)
-//
-//
-//                }
-//            }.create().show()
 
             Hawk.put("purchase", purchaseList[position])
             val action = ListPurchasesFragmentDirections.actionListPurchasesFragmentToListProductFragment()

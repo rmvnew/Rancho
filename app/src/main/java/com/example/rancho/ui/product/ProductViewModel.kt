@@ -6,11 +6,14 @@ import androidx.lifecycle.ViewModel
 
 class ProductViewModel : ViewModel() {
 
+    private var mActions = MutableLiveData<String>()
+    val actions : LiveData<String> = mActions
 
 
 
-
-
+    fun setAction(action: String) {
+        mActions.value = action
+    }
 
 
 }
