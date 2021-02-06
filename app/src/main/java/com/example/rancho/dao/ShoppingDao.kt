@@ -17,4 +17,7 @@ interface ShoppingDao {
     @Query("SELECT * FROM shopping WHERE dateShopping = :thisDate")
     suspend fun getAllShoppingsThisDate(thisDate:String):List<Shopping>
 
+    @Update
+    suspend fun updateShopping(shop: Shopping)
+
 }

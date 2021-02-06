@@ -21,7 +21,16 @@
         app:cardCornerRadius="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" >
+
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="280dp"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:layout_height="wrap_content"
+            android:src="@drawable/list_purchase" />
+    </com.google.android.material.card.MaterialCardView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerShopp"
@@ -39,7 +48,7 @@
         app:layout_constraintTop_toBottomOf="@+id/cardListPurchases" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btnAddNewPurchase"
+        android:id="@+id/btnAddNewProduct"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/AZUL_STEEL_BLUE"
@@ -73,9 +82,9 @@
         android:text="Adicionar"
         android:textColor="@color/white"
         android:textStyle="bold|italic"
-        app:layout_constraintBottom_toTopOf="@+id/btnAddNewPurchase"
-        app:layout_constraintEnd_toEndOf="@+id/btnAddNewPurchase"
-        app:layout_constraintStart_toStartOf="@+id/btnAddNewPurchase" />
+        app:layout_constraintBottom_toTopOf="@+id/btnAddNewProduct"
+        app:layout_constraintEnd_toEndOf="@+id/btnAddNewProduct"
+        app:layout_constraintStart_toStartOf="@+id/btnAddNewProduct" />
 
     <TextView
         android:id="@+id/textView2"

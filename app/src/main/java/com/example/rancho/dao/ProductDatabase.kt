@@ -17,6 +17,7 @@ import com.example.rancho.model.Shopping
 abstract class ProductDatabase : RoomDatabase() {
 
     abstract fun getShoppingDao():ShoppingDao
+    abstract fun getProductDao():ProductDao
 
     companion object {
         @Volatile

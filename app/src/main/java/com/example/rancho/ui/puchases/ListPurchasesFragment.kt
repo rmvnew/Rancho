@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.example.rancho.MainActivity
 import com.example.rancho.adapter.ListPurchasesAdapter
 import com.example.rancho.dao.ProductDatabase
 import com.example.rancho.databinding.FragmentListPurchasesBinding
@@ -34,7 +35,7 @@ class ListPurchasesFragment : Fragment() {
 
         _binding = FragmentListPurchasesBinding.inflate(inflater,container,false)
         viewModel = ViewModelProvider(this).get(ListPurchasesViewModel::class.java)
-
+        (activity as MainActivity).supportActionBar?.hide()
 
 
 
@@ -56,7 +57,7 @@ class ListPurchasesFragment : Fragment() {
         binding.apply {
 
 
-            btnAddNewPurchase.setOnClickListener {
+            btnAddNewProduct.setOnClickListener {
                 viewModel.saveNewPurchase(requireContext())
             }
 

@@ -10,12 +10,29 @@
         android:label="fragment_list_purchases"
         tools:layout="@layout/fragment_list_purchases" >
         <action
-            android:id="@+id/action_listPurchasesFragment_to_addProductFragment"
-            app:destination="@id/addProductFragment" />
+            android:id="@+id/action_listPurchasesFragment_to_listProductFragment"
+            app:destination="@id/listProductFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/addProductFragment"
         android:name="com.example.rancho.ui.product.AddProductFragment"
         android:label="fragment_add_product"
         tools:layout="@layout/fragment_add_product" />
+    <fragment
+        android:id="@+id/listProductFragment"
+        android:name="com.example.rancho.ui.product.ListProductFragment"
+        android:label="fragment_list_product"
+        tools:layout="@layout/fragment_list_product" >
+        <action
+            android:id="@+id/action_listProductFragment_to_addProductFragment"
+            app:destination="@id/addProductFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
 </navigation>

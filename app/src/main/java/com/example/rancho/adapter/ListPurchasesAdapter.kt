@@ -1,10 +1,14 @@
 package com.example.rancho.adapter
 
+import android.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rancho.databinding.ItemPurchaseBinding
 import com.example.rancho.model.Shopping
+import com.example.rancho.ui.puchases.ListPurchasesFragmentDirections
+import com.orhanobut.hawk.Hawk
 
 class ListPurchasesAdapter() :
     RecyclerView.Adapter<ListPurchasesAdapter.ListPurchasesViewHolder>() {
@@ -40,6 +44,35 @@ class ListPurchasesAdapter() :
             status = "Inativo"
         }
         holder.binding.txtActive.text = status
+
+        holder.itemView.setOnClickListener {
+
+//            AlertDialog.Builder(it.context).apply {
+//                setTitle(purchaseList[position].dateShopping + " Selecionado!!")
+//                setMessage("Usar esse cliente ou editar?")
+//
+//                setPositiveButton("Usar") { _, _ ->
+//
+//                    Hawk.put("purchase", purchaseList[position])
+//
+//
+//                }
+//
+//                setNegativeButton("Editar") { _, _ ->
+//
+//                    Hawk.put("client", purchaseList[position])
+//                    val action = ListPurchasesFragmentDirections.actionListPurchasesFragmentToListProductFragment()
+//                    Navigation.findNavController(it).navigate(action)
+//
+//
+//                }
+//            }.create().show()
+
+            Hawk.put("purchase", purchaseList[position])
+            val action = ListPurchasesFragmentDirections.actionListPurchasesFragmentToListProductFragment()
+            Navigation.findNavController(it).navigate(action)
+
+        }
 
     }
 
