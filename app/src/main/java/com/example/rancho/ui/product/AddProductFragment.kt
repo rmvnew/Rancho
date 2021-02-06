@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.rancho.dao.ProductDatabase
 import com.example.rancho.databinding.FragmentAddProductBinding
 import com.example.rancho.model.Product
@@ -25,6 +26,7 @@ class AddProductFragment : Fragment() {
     private val binding: FragmentAddProductBinding get() = _binding!!
     private lateinit var productViewModel: ProductViewModel
     private var id_shopping: Int? = null
+    private var product :Product? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,6 +35,7 @@ class AddProductFragment : Fragment() {
 
         _binding = FragmentAddProductBinding.inflate(inflater, container, false)
         productViewModel = ViewModelInstance.getProductViewModel()
+
 
         val shop = Hawk.get<Shopping>("purchase")
         id_shopping = shop.id
@@ -45,9 +48,26 @@ class AddProductFragment : Fragment() {
 
         binding.productViewModel = productViewModel
 
-
+        checkProduct()
         observe()
         actions()
+
+    }
+
+    private fun checkProduct() {
+        val args: AddProductFragmentArgs by navArgs()
+        product = args.product
+
+        binding.apply {
+
+            product?.let {
+                editProductName.setText(product!!.productName)
+                editProductQuantity.setText(product!!.productQuantity.toString())
+                editProductValue.setText(product!!.productValue.toString())
+                cbProductDone.isChecked = product!!.productDone
+            }
+
+        }
 
     }
 
@@ -80,6 +100,7 @@ class AddProductFragment : Fragment() {
                 if (editProductName.text.toString().isNotEmpty()) {
 
                     val prod = getProduct()
+                    prod.id = product!!.id
 
                     GlobalScope.launch {
 

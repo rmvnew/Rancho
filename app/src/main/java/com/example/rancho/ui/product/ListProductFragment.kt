@@ -83,7 +83,7 @@ class ListProductFragment : Fragment() {
 
 
                 val hist = ProductDatabase(requireContext()).getProductDao().getAllProducts(id_shopping.toString())
-                listProduct.setProductList(hist)
+                listProduct.setProductList(hist,requireContext())
 
 
         }

@@ -2,6 +2,8 @@ package com.example.rancho
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.navigation.Navigation
+import androidx.navigation.ui.NavigationUI
 import com.example.rancho.databinding.ActivityMainBinding
 import com.orhanobut.hawk.Hawk
 
@@ -15,6 +17,9 @@ class MainActivity : AppCompatActivity() {
 
         Hawk.init(this).build()
 
+
         setContentView(binding.root)
     }
+
+
 }
