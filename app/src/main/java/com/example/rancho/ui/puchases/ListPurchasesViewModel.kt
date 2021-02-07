@@ -1,14 +1,10 @@
 package com.example.rancho.ui.puchases
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.rancho.dao.ProductDatabase
 import com.example.rancho.model.Shopping
-import com.example.rancho.util.DateUtil
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+
 
 class ListPurchasesViewModel : ViewModel() {
 
@@ -21,19 +17,11 @@ class ListPurchasesViewModel : ViewModel() {
     private var mDeletePurchase = MutableLiveData<String>()
     val deletePurchase : LiveData<String> = mDeletePurchase
 
+    private var mUpdateStatus = MutableLiveData<Shopping>()
+    val updateStatus : LiveData<Shopping> = mUpdateStatus
 
-    fun saveNewPurchase(context: Context) {
 
-        val shop = Shopping(
-            DateUtil.getCurrentDate(),
-            DateUtil.getCurrentTime(),
-            true
-        )
-
-        GlobalScope.launch {
-            ProductDatabase(context).getShoppingDao().addShopping(shop)
-
-        }
+    fun setNewPurchase() {
 
         Thread.sleep(1000)
         mSaved.value = true
@@ -48,8 +36,12 @@ class ListPurchasesViewModel : ViewModel() {
         mDateOfPayment.value = date
     }
 
-    fun setDeletePurchase(s: String) {
-        mDeletePurchase.value = s
+    fun setDeletePurchase(status: String) {
+        mDeletePurchase.value = status
+    }
+
+    fun setUpdateStatus(shop:Shopping) {
+        mUpdateStatus.value = shop
     }
 
 

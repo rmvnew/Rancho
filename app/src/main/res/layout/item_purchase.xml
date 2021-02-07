@@ -32,12 +32,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginLeft="32dp"
-                android:layout_marginTop="5dp"
-                android:textColor="@color/AZUL_DEEP_SKYE"
+                android:layout_marginTop="4dp"
                 android:text="Data: "
+                android:textColor="@color/AZUL_DEEP_SKYE"
                 android:textStyle="bold|italic"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/infoshop" />
 
             <TextView
                 android:id="@+id/txtDatePurchase"
@@ -75,6 +75,31 @@
                 android:text="TextView"
                 app:layout_constraintBaseline_toBaselineOf="@+id/infoTime"
                 app:layout_constraintStart_toEndOf="@+id/infoTime" />
+
+            <TextView
+                android:id="@+id/infoshop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginLeft="32dp"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/AZUL_DEEP_SKYE"
+                android:textStyle="bold|italic"
+                android:text="Supermercado: "
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txtSupermarket"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:textStyle="bold|italic"
+                android:textColor="@color/white"
+                android:text="TextView"
+                app:layout_constraintBaseline_toBaselineOf="@+id/infoshop"
+                app:layout_constraintStart_toEndOf="@+id/infoshop" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardStatusPurchase"

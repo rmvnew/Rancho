@@ -2,11 +2,9 @@ package com.example.rancho.adapter
 
 import android.app.AlertDialog
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rancho.dao.ProductDatabase
 import com.example.rancho.databinding.ItemPurchaseBinding
@@ -49,6 +47,7 @@ class ListPurchasesAdapter() :
         var status = ""
         viewModel = ViewModelInstance.getPurchaseViewModel()
 
+        holder.binding.txtSupermarket.text = purchaseList[position].name
         holder.binding.txtDatePurchase.text = purchaseList[position].dateShopping
         holder.binding.txtTimePurchase.text = purchaseList[position].timeShopping
         if(purchaseList[position].active){
@@ -71,11 +70,11 @@ class ListPurchasesAdapter() :
 
 
             AlertDialog.Builder(context).apply {
-                setTitle(purchaseList[position].dateShopping+" Selecionado!!")
+                setTitle(purchaseList[position].name+" Selecionado!!")
                 setMessage("Deseja realmente deletar?")
-                setPositiveButton("Cancelar"){_,_ ->
+                setPositiveButton("Editar"){_,_ ->
 
-
+                viewModel.setUpdateStatus(purchaseList[position])
 
                 }
 
@@ -89,6 +88,8 @@ class ListPurchasesAdapter() :
                     viewModel.setDeletePurchase("delete")
 
                 }
+
+
             }.create().show()
 
 

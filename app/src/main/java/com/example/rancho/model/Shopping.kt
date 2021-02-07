@@ -6,6 +6,7 @@ import java.io.Serializable
 
 @Entity
 class Shopping(
+    val name : String,
     val dateShopping : String,
     val timeShopping : String,
     val active:Boolean
