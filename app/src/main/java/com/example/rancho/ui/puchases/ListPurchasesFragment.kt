@@ -15,6 +15,7 @@ import com.example.rancho.adapter.ListPurchasesAdapter
 import com.example.rancho.dao.ProductDatabase
 import com.example.rancho.databinding.FragmentListPurchasesBinding
 import com.example.rancho.enum.SearchType
+import com.example.rancho.util.ViewModelInstance
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
@@ -35,6 +36,7 @@ class ListPurchasesFragment : Fragment() {
 
         _binding = FragmentListPurchasesBinding.inflate(inflater,container,false)
         viewModel = ViewModelProvider(this).get(ListPurchasesViewModel::class.java)
+        ViewModelInstance.setPurchaseViewModel(viewModel)
         (activity as MainActivity).supportActionBar?.hide()
 
 
@@ -118,6 +120,10 @@ class ListPurchasesFragment : Fragment() {
             }
 
         })
+
+        viewModel.deletePurchase.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            callRecyclerView(null)
+        })
     }
 
 
@@ -134,13 +140,13 @@ class ListPurchasesFragment : Fragment() {
             if (type == SearchType.ALL && date == null) {
 
                 val hist = ProductDatabase(requireContext()).getShoppingDao().getAllShoppings()
-                listPurchase.setPurchaseList(hist)
+                listPurchase.setPurchaseList(hist,requireContext())
 
             } else if (type == SearchType.DATE && date != null) {
 
                 val hist =
                     ProductDatabase(requireContext()).getShoppingDao().getAllShoppingsThisDate(date)
-                listPurchase.setPurchaseList(hist)
+                listPurchase.setPurchaseList(hist,requireContext())
 
             }
 

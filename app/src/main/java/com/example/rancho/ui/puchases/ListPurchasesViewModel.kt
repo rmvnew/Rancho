@@ -18,6 +18,9 @@ class ListPurchasesViewModel : ViewModel() {
     private var mSaved = MutableLiveData<Boolean>()
     val saved : LiveData<Boolean> = mSaved
 
+    private var mDeletePurchase = MutableLiveData<String>()
+    val deletePurchase : LiveData<String> = mDeletePurchase
+
 
     fun saveNewPurchase(context: Context) {
 
@@ -43,6 +46,10 @@ class ListPurchasesViewModel : ViewModel() {
 
     fun setDateNewOrder(date: String?) {
         mDateOfPayment.value = date
+    }
+
+    fun setDeletePurchase(s: String) {
+        mDeletePurchase.value = s
     }
 
 

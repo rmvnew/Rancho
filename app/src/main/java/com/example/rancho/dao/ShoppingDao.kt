@@ -20,4 +20,7 @@ interface ShoppingDao {
     @Update
     suspend fun updateShopping(shop: Shopping)
 
+    @Delete
+    suspend fun deleteShopping(shop:Shopping)
+
 }
