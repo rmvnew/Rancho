@@ -19,7 +19,7 @@
             android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:src="@drawable/add_product"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -28,13 +28,14 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/infoProductName"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="70dp"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/btnSpeak"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView">
 
@@ -52,8 +53,12 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/infoProductQuantity"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="150dp"
+            android:layout_width="0dp"
             android:layout_height="70dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
             app:layout_constraintEnd_toStartOf="@+id/infoProductValue"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -73,8 +78,12 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/infoProductValue"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="150dp"
+            android:layout_width="0dp"
             android:layout_height="69dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/infoProductQuantity"
@@ -108,12 +117,11 @@
             style="@style/Widget.App.Button.OutlinedButton.IconOnly"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginLeft="32dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginStart="36dp"
+            android:layout_marginLeft="36dp"
             app:icon="@drawable/ic_baseline_check_24"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cbProductDone"
+            app:layout_constraintTop_toBottomOf="@+id/textView4"
             app:tint="@color/white" />
 
         <Button
@@ -139,7 +147,52 @@
             app:layout_constraintBaseline_toBaselineOf="@+id/btnUpdateProduct"
             app:layout_constraintStart_toEndOf="@+id/btnUpdateProduct" />
 
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textSize="12dp"
+            android:textStyle="bold|italic"
+            android:text="Salvar"
+            app:layout_constraintEnd_toEndOf="@+id/btnAddProduct"
+            app:layout_constraintStart_toStartOf="@+id/btnAddProduct"
+            app:layout_constraintTop_toBottomOf="@+id/cbProductDone" />
 
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12dp"
+            android:textStyle="bold|italic"
+            android:text="Atualizar"
+            app:layout_constraintBaseline_toBaselineOf="@+id/textView4"
+            app:layout_constraintEnd_toEndOf="@+id/btnUpdateProduct"
+            app:layout_constraintStart_toStartOf="@+id/btnUpdateProduct" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12dp"
+            android:textStyle="bold|italic"
+            android:text="Deletar"
+            app:layout_constraintBaseline_toBaselineOf="@+id/textView5"
+            app:layout_constraintEnd_toEndOf="@+id/btnDeleteProduct"
+            app:layout_constraintStart_toStartOf="@+id/btnDeleteProduct" />
+
+        <ImageView
+            android:id="@+id/btnSpeak"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="58dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            app:srcCompat="@drawable/speak"
+            app:tint="@color/AZUL_STEEL_BLUE3"
+            tools:ignore="VectorDrawableCompat" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

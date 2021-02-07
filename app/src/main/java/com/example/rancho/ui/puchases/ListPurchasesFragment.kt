@@ -1,14 +1,15 @@
 package com.example.rancho.ui.puchases
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.os.Bundle
+import android.speech.RecognizerIntent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
-import android.widget.DatePicker
-import android.widget.EditText
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -36,6 +37,10 @@ class ListPurchasesFragment : Fragment() {
     private lateinit var viewModel: ListPurchasesViewModel
     private var cal = Calendar.getInstance()
     lateinit var purchase : Shopping
+    private val REQUEST_CODE_SPEECH_INPUT = 100
+    private var editTextNewPurchase: EditText? = null
+    private var cbPurchase:CheckBox? = null
+    private var btnSpeak:ImageView? = null
 
 
     override fun onCreateView(
@@ -107,22 +112,27 @@ class ListPurchasesFragment : Fragment() {
         val builder = AlertDialog.Builder(requireContext())
         val inflater: LayoutInflater = layoutInflater
         val dialogLayout: View = inflater.inflate(R.layout.edit_text_purchase, null)
-        val editText: EditText = dialogLayout.findViewById<EditText>(R.id.editPurchaseName)
-        val cbPurchase:CheckBox = dialogLayout.findViewById<CheckBox>(R.id.cbPurchaseActive)
+        editTextNewPurchase = dialogLayout.findViewById<EditText>(R.id.editPurchaseName)
+        cbPurchase = dialogLayout.findViewById<CheckBox>(R.id.cbPurchaseActive)
+        btnSpeak = dialogLayout.findViewById<ImageView>(R.id.btnSpeak)
 
         if(status == StatusPurchase.UPDATE){
-            editText.setText(purchase.name)
-            cbPurchase.isChecked = purchase.active
+            editTextNewPurchase!!.setText(purchase.name)
+            cbPurchase!!.isChecked = purchase.active
+        }
+
+        btnSpeak!!.setOnClickListener {
+            speak()
         }
 
         with(builder) {
             setTitle("Informe o nome do Supermercado")
             setPositiveButton("OK") { dialog, whith ->
-                if (editText.text.isNotEmpty()) {
+                if (editTextNewPurchase!!.text.isNotEmpty()) {
                     if(status == StatusPurchase.SAVE){
-                        savePurchase(editText.text.trim().toString(),cbPurchase.isChecked)
+                        savePurchase(editTextNewPurchase!!.text.trim().toString(),cbPurchase!!.isChecked)
                     }else{
-                        updatePurchase(editText.text.trim().toString(),cbPurchase.isChecked)
+                        updatePurchase(editTextNewPurchase!!.text.trim().toString(),cbPurchase!!.isChecked)
                     }
                 } else {
                     ShowMessage.showToast("Informe o nome do supermercado", requireContext())
@@ -252,6 +262,40 @@ class ListPurchasesFragment : Fragment() {
 
             )
         }
+    }
+
+
+    private fun speak(){
+        val mIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+        mIntent.putExtra(
+            RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+            RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+        mIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
+        mIntent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Olá fale alguma coisa!")
+
+        try {
+            startActivityForResult(mIntent,REQUEST_CODE_SPEECH_INPUT)
+        }catch(ex: Exception){
+            Toast.makeText(requireContext(),ex.message, Toast.LENGTH_SHORT).show()
+        }
+
+
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        when(requestCode){
+
+            REQUEST_CODE_SPEECH_INPUT ->{
+                if(resultCode == Activity.RESULT_OK && null != data){
+                    val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+                    editTextNewPurchase!!.setText(result?.get(0))
+                    editTextNewPurchase!!.requestFocus()
+                }
+            }
+        }
+
     }
 
 

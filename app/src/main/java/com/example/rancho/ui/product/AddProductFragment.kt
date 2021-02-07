@@ -1,13 +1,15 @@
 package com.example.rancho.ui.product
 
+import android.app.Activity
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
+import android.speech.RecognizerIntent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.rancho.dao.ProductDatabase
@@ -19,6 +21,7 @@ import com.orhanobut.hawk.Hawk
 import dominando.android.testeproduct.util.ShowMessage
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.util.*
 
 
 class AddProductFragment : Fragment() {
@@ -28,6 +31,7 @@ class AddProductFragment : Fragment() {
     private lateinit var productViewModel: ProductViewModel
     private var id_shopping: Int? = null
     private var product :Product? = null
+    private val REQUEST_CODE_SPEECH_INPUT = 100
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,7 +54,6 @@ class AddProductFragment : Fragment() {
         binding.productViewModel = productViewModel
 
         checkProduct()
-        observe()
         actions()
 
     }
@@ -156,8 +159,15 @@ class AddProductFragment : Fragment() {
 
             }
 
+            btnSpeak.setOnClickListener {
+                speak()
+            }
+
 
         }
+
+
+
 
     }
 
@@ -176,10 +186,41 @@ class AddProductFragment : Fragment() {
     }
 
 
-    private fun observe() {
+    private fun speak(){
+        val mIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+        mIntent.putExtra(
+            RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+            RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+        mIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
+        mIntent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Olá fale alguma coisa!")
+
+        try {
+            startActivityForResult(mIntent,REQUEST_CODE_SPEECH_INPUT)
+        }catch(ex: Exception){
+            Toast.makeText(requireContext(),ex.message, Toast.LENGTH_SHORT).show()
+        }
 
 
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        when(requestCode){
+
+            REQUEST_CODE_SPEECH_INPUT ->{
+                if(resultCode == Activity.RESULT_OK && null != data){
+                    val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+                    binding.editProductName.setText(result?.get(0))
+                    binding.editProductQuantity.requestFocus()
+                }
+            }
+        }
+
+    }
+
+
+
 
 
 }
