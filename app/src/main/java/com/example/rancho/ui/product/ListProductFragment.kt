@@ -58,6 +58,20 @@ class ListProductFragment : Fragment() {
             callRecyclerView()
 
         })
+
+
+        productViewModel.totalValue.observe(viewLifecycleOwner, Observer {
+
+            var total = 0.0
+           it.forEach { data ->
+             if(data.productDone){
+                 total +=  (data.productValue * data.productQuantity)
+             }
+           }
+
+            binding.txtTotalValue.setText("R$ "+String.format("%.2f",total))
+
+        })
     }
 
     private fun actions() {
@@ -80,11 +94,9 @@ class ListProductFragment : Fragment() {
 
         lifecycleScope.launch {
 
-
-
                 val hist = ProductDatabase(requireContext()).getProductDao().getAllProducts(id_shopping.toString())
                 listProduct.setProductList(hist,requireContext())
-
+                productViewModel.setTotalValue(hist)
 
         }
 

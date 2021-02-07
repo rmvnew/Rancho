@@ -1,9 +1,6 @@
 package com.example.rancho.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 import com.example.rancho.model.Product
 
 
@@ -18,5 +15,8 @@ interface ProductDao {
 
     @Update
     suspend fun updateProduct(prod: Product)
+
+    @Delete
+    suspend fun deleteProduct(prod:Product)
 
 }

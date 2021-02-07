@@ -24,12 +24,24 @@
         app:layout_constraintTop_toTopOf="parent" >
 
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="280dp"
-            android:layout_gravity="center_vertical|center_horizontal"
-            android:layout_height="wrap_content"
-            android:src="@drawable/list_purchase" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/list_purchase"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </com.google.android.material.card.MaterialCardView>
 
     <androidx.recyclerview.widget.RecyclerView

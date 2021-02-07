@@ -1,5 +1,6 @@
 package com.example.rancho.ui.product
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -114,6 +115,44 @@ class AddProductFragment : Fragment() {
                     ShowMessage.showToast("Informe o nome do produto", requireContext())
                 }
 
+
+            }
+
+
+            btnDeleteProduct.setOnClickListener {
+                if (editProductName.text.toString().isNotEmpty()) {
+
+                    val prod = getProduct()
+                    prod.id = product!!.id
+
+                    AlertDialog.Builder(requireContext()).apply {
+                        setTitle(prod.productName+" Selecionado!!")
+                        setMessage("Deseja realmente deletar?")
+                        setPositiveButton("Cancelar"){_,_ ->
+
+
+
+                        }
+
+                        setNegativeButton("Deletar"){_,_ ->
+
+                            GlobalScope.launch {
+
+                                ProductDatabase(requireContext()).getProductDao().deleteProduct(prod)
+
+                            }
+                            productViewModel!!.setAction("delete")
+                            findNavController().popBackStack()
+
+                        }
+                    }.create().show()
+
+
+
+
+                } else {
+                    ShowMessage.showToast("Informe o nome do produto", requireContext())
+                }
 
             }
 

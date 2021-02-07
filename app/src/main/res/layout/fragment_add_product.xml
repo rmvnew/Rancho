@@ -105,49 +105,39 @@
 
         <Button
             android:id="@+id/btnAddProduct"
+            style="@style/Widget.App.Button.OutlinedButton.IconOnly"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:backgroundTint="@color/AZUL_STEEL_BLUE2"
-            android:text="Salvar"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="24dp"
+            app:icon="@drawable/ic_baseline_check_24"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cbProductDone" />
+            app:layout_constraintTop_toBottomOf="@+id/cbProductDone"
+            app:tint="@color/white" />
 
         <Button
             android:id="@+id/btnUpdateProduct"
+            style="@style/Widget.App.Button.OutlinedButton.IconOnly"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:backgroundTint="@color/AZUL_STEEL_BLUE2"
-            android:text="Atualizar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnAddProduct" />
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            app:icon="@drawable/ic_baseline_update_24"
+            app:layout_constraintBaseline_toBaselineOf="@+id/btnAddProduct"
+            app:layout_constraintStart_toEndOf="@+id/btnAddProduct" />
 
 
         <Button
-            android:id="@+id/btnItemDelete"
+            android:id="@+id/btnDeleteProduct"
+            style="@style/Widget.App.Button.OutlinedButton.IconOnly"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:backgroundTint="@color/button_red_dark"
-            android:text="Delete item"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnUpdateProduct" />
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            app:icon="@drawable/ic_baseline_delete_24"
+            app:layout_constraintBaseline_toBaselineOf="@+id/btnUpdateProduct"
+            app:layout_constraintStart_toEndOf="@+id/btnUpdateProduct" />
 
 
 
