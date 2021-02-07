@@ -167,8 +167,8 @@ class AddProductFragment : Fragment() {
             return Product(
                 id_shopping!!,
                 editProductName.text.toString(),
-                editProductQuantity.text.toString().toInt(),
-                editProductValue.text.toString().replace(",", ".").toDouble(),
+                if(editProductQuantity.text.toString().isNullOrEmpty()){1}else{editProductQuantity.text.toString().toInt()},
+                if(editProductValue.text.toString().isNullOrEmpty()){0.0}else{editProductValue.text.toString().replace(",", ".").toDouble()},
                 cbProductDone.isChecked
             )
 
