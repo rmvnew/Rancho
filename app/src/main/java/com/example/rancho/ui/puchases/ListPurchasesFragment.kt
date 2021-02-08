@@ -229,6 +229,7 @@ class ListPurchasesFragment : Fragment() {
     private fun callRecyclerView(date: String?, type: SearchType = SearchType.ALL) {
 
         setupRecyclerView()
+
         val listPurchase = ListPurchasesAdapter()
 
 

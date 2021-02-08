@@ -190,7 +190,7 @@
             android:layout_marginRight="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView"
-            app:srcCompat="@drawable/speak"
+            app:srcCompat="@drawable/ic_speak_mod"
             app:tint="@color/AZUL_STEEL_BLUE3"
             tools:ignore="VectorDrawableCompat" />
 

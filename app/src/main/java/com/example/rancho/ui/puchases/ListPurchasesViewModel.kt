@@ -37,6 +37,7 @@ class ListPurchasesViewModel : ViewModel() {
     }
 
     fun setDeletePurchase(status: String) {
+        Thread.sleep(1000)
         mDeletePurchase.value = status
     }
 
