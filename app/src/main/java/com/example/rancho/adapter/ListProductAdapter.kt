@@ -51,8 +51,8 @@ class ListProductAdapter() : RecyclerView.Adapter<ListProductAdapter.ListProduct
         if (productList[position].productDone) {
             result = "Concluído"
             holder.binding.cardStatusProduct.backgroundTintList =
-                ContextCompat.getColorStateList(context!!,R.color.AZUL_STEEL_BLUE2)
-           // holder.binding.txtStatusProduct.setTextColor(R.color.PRETO)
+                ContextCompat.getColorStateList(context!!,R.color.AZUL_DEEP_SKYE)
+            holder.binding.txtStatusProduct.setTextColor(Color.parseColor("#000000"))
         } else {
             result = "Aguardando"
         }

@@ -102,19 +102,23 @@ class AddProductFragment : Fragment() {
             btnUpdateProduct.setOnClickListener {
 
                 if (editProductName.text.toString().isNotEmpty()) {
+                    if(product != null){
+                        val prod = getProduct()
+                        prod.id = product!!.id
 
-                    val prod = getProduct()
-                    prod.id = product!!.id
+                        GlobalScope.launch {
 
-                    GlobalScope.launch {
+                            ProductDatabase(requireContext()).getProductDao().updateProduct(prod)
 
-                        ProductDatabase(requireContext()).getProductDao().updateProduct(prod)
+                        }
+                        Thread.sleep(1000)
+                        productViewModel!!.setAction("update")
+                        product = null
+                        findNavController().popBackStack()
 
+                    }else{
+                        ShowMessage.showToast("O produto não esta salvo,\n Impossível atualizar", requireContext())
                     }
-                    Thread.sleep(1000)
-                    productViewModel!!.setAction("update")
-                    findNavController().popBackStack()
-
                 } else {
                     ShowMessage.showToast("Informe o nome do produto", requireContext())
                 }
@@ -125,35 +129,35 @@ class AddProductFragment : Fragment() {
 
             btnDeleteProduct.setOnClickListener {
                 if (editProductName.text.toString().isNotEmpty()) {
+                    if(product != null){
+                        val prod = getProduct()
+                        prod.id = product!!.id
 
-                    val prod = getProduct()
-                    prod.id = product!!.id
-
-                    AlertDialog.Builder(requireContext()).apply {
-                        setTitle(prod.productName+" Selecionado!!")
-                        setMessage("Deseja realmente deletar?")
-                        setPositiveButton("Cancelar"){_,_ ->
+                        AlertDialog.Builder(requireContext()).apply {
+                            setTitle(prod.productName+" Selecionado!!")
+                            setMessage("Deseja realmente deletar?")
+                            setPositiveButton("Cancelar"){_,_ ->
 
 
-
-                        }
-
-                        setNegativeButton("Deletar"){_,_ ->
-
-                            GlobalScope.launch {
-
-                                ProductDatabase(requireContext()).getProductDao().deleteProduct(prod)
 
                             }
-                            productViewModel!!.setAction("delete")
-                            findNavController().popBackStack()
 
-                        }
-                    }.create().show()
+                            setNegativeButton("Deletar"){_,_ ->
 
+                                GlobalScope.launch {
 
+                                    ProductDatabase(requireContext()).getProductDao().deleteProduct(prod)
 
+                                }
+                                productViewModel!!.setAction("delete")
+                                product = null
+                                findNavController().popBackStack()
 
+                            }
+                        }.create().show()
+                    }else{
+                        ShowMessage.showToast("O produto não esta salvo,\n Impossível deletar", requireContext())
+                    }
                 } else {
                     ShowMessage.showToast("Informe o nome do produto", requireContext())
                 }
