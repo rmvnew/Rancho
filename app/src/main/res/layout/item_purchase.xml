@@ -8,7 +8,7 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/materialCardView"
-        android:backgroundTint="@color/CINZA_DARK_FORCE"
+        android:backgroundTint="@color/AZUL_STEEL_BLUE3"
         android:layout_marginBottom="5dp"
         android:layout_marginRight="25dp"
         android:layout_marginLeft="25dp"

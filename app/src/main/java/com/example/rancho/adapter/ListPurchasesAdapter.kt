@@ -81,7 +81,9 @@ class ListPurchasesAdapter() :
                 setNegativeButton("Deletar"){_,_ ->
 
                     GlobalScope.launch {
+
                         ProductDatabase(context!!).getShoppingDao().deleteShopping(purchaseList[position])
+                        ProductDatabase(context!!).getProductDao().deleteAllProducts(purchaseList[position].id.toString())
 
                     }
 

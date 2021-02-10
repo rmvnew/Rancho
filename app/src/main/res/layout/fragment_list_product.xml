@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.puchases.ListPurchasesFragment">
 
@@ -17,7 +16,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:backgroundTint="@color/CINZA_DARK_FORCE"
+        android:backgroundTint="@color/AZUL_STEEL_BLUE2"
         app:cardCornerRadius="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,13 +27,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="280dp"
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical|center_horizontal"
                 android:layout_marginTop="16dp"
-                android:src="@drawable/list_product"
+                android:textSize="35sp"
+                android:gravity="center"
+                android:textColor="@color/BRANCO"
+                android:fontFamily="@font/athena"
+                android:text="Lista de produtos"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -77,14 +79,14 @@
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardListPurchases" />
+        app:layout_constraintTop_toBottomOf="@+id/divider" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnAddNewProduct"
@@ -112,6 +114,15 @@
         app:layout_constraintEnd_toEndOf="@+id/btnAddNewProduct"
         app:layout_constraintStart_toStartOf="@+id/btnAddNewProduct" />
 
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_marginTop="8dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardListPurchases" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

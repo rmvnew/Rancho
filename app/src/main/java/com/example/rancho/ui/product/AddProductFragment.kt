@@ -111,6 +111,7 @@ class AddProductFragment : Fragment() {
                         ProductDatabase(requireContext()).getProductDao().updateProduct(prod)
 
                     }
+                    Thread.sleep(1000)
                     productViewModel!!.setAction("update")
                     findNavController().popBackStack()
 
