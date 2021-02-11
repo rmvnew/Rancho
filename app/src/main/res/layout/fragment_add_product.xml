@@ -126,7 +126,6 @@
                 android:hint="Valor"
                 android:inputType="numberDecimal"
                 android:imeOptions="actionDone"
-                android:textColor="@color/black"
                 android:textColorHint="@color/AZUL_STEEL_BLUE" />
 
         </com.google.android.material.textfield.TextInputLayout>
