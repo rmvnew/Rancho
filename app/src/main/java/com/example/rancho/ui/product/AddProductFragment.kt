@@ -83,15 +83,19 @@ class AddProductFragment : Fragment() {
 
                 if (editProductName.text.toString().isNotEmpty()) {
 
-                    val prod = getProduct()
+                   if(product == null){
+                       val prod = getProduct()
 
-                    GlobalScope.launch {
+                       GlobalScope.launch {
 
-                        ProductDatabase(requireContext()).getProductDao().addProduct(prod)
+                           ProductDatabase(requireContext()).getProductDao().addProduct(prod)
 
-                    }
-                    productViewModel!!.setAction("add")
-                    findNavController().popBackStack()
+                       }
+                       productViewModel!!.setAction("add")
+                       findNavController().popBackStack()
+                   }else{
+                       ShowMessage.showToast("Este produto já foi salvo!!\nDisponivel: Atualizar e/ou deletar", requireContext())
+                   }
 
                 } else {
                     ShowMessage.showToast("Informe o nome do produto", requireContext())
