@@ -36,11 +36,11 @@ class ListPurchasesFragment : Fragment() {
     private val binding: FragmentListPurchasesBinding get() = _binding!!
     private lateinit var viewModel: ListPurchasesViewModel
     private var cal = Calendar.getInstance()
-    lateinit var purchase : Shopping
+    lateinit var purchase: Shopping
     private val REQUEST_CODE_SPEECH_INPUT = 100
     private var editTextNewPurchase: EditText? = null
-    private var cbPurchase:CheckBox? = null
-    private var btnSpeak:ImageView? = null
+    private var cbPurchase: CheckBox? = null
+    private var btnSpeak: ImageView? = null
 
 
     override fun onCreateView(
@@ -107,7 +107,7 @@ class ListPurchasesFragment : Fragment() {
 
     }
 
-    private fun showEditTextDialog(status:StatusPurchase) {
+    private fun showEditTextDialog(status: StatusPurchase) {
 
         val builder = AlertDialog.Builder(requireContext())
         val inflater: LayoutInflater = layoutInflater
@@ -116,7 +116,7 @@ class ListPurchasesFragment : Fragment() {
         cbPurchase = dialogLayout.findViewById<CheckBox>(R.id.cbPurchaseActive)
         btnSpeak = dialogLayout.findViewById<ImageView>(R.id.btnSpeak)
 
-        if(status == StatusPurchase.UPDATE){
+        if (status == StatusPurchase.UPDATE) {
             editTextNewPurchase!!.setText(purchase.name)
             cbPurchase!!.isChecked = purchase.active
         }
@@ -129,10 +129,16 @@ class ListPurchasesFragment : Fragment() {
             setTitle("Informe o nome do Supermercado")
             setPositiveButton("OK") { dialog, whith ->
                 if (editTextNewPurchase!!.text.isNotEmpty()) {
-                    if(status == StatusPurchase.SAVE){
-                        savePurchase(editTextNewPurchase!!.text.trim().toString(),cbPurchase!!.isChecked)
-                    }else{
-                        updatePurchase(editTextNewPurchase!!.text.trim().toString(),cbPurchase!!.isChecked)
+                    if (status == StatusPurchase.SAVE) {
+                        savePurchase(
+                            editTextNewPurchase!!.text.trim().toString(),
+                            cbPurchase!!.isChecked
+                        )
+                    } else {
+                        updatePurchase(
+                            editTextNewPurchase!!.text.trim().toString(),
+                            cbPurchase!!.isChecked
+                        )
                         viewModel.setUpdate(false)
                     }
                 } else {
@@ -147,7 +153,7 @@ class ListPurchasesFragment : Fragment() {
     }
 
 
-    private fun savePurchase(name: String,isActive:Boolean) {
+    private fun savePurchase(name: String, isActive: Boolean) {
         val shop = Shopping(
             name,
             DateUtil.getCurrentDate(),
@@ -162,7 +168,8 @@ class ListPurchasesFragment : Fragment() {
 
         viewModel.setNewPurchase()
     }
-    private fun updatePurchase(name: String,isActive:Boolean) {
+
+    private fun updatePurchase(name: String, isActive: Boolean) {
         val shop = Shopping(
             name,
             DateUtil.getCurrentDate(),
@@ -179,7 +186,6 @@ class ListPurchasesFragment : Fragment() {
 
         viewModel.setNewPurchase()
     }
-
 
 
     private fun updateDateInView() {
@@ -220,7 +226,7 @@ class ListPurchasesFragment : Fragment() {
         viewModel.updateStatus.observe(viewLifecycleOwner, {
 
             purchase = viewModel.mShopping!!
-            if(it) {
+            if (it) {
                 showEditTextDialog(StatusPurchase.UPDATE)
             }
         })
@@ -245,7 +251,12 @@ class ListPurchasesFragment : Fragment() {
 
                 val hist =
                     ProductDatabase(requireContext()).getShoppingDao().getAllShoppingsThisDate(date)
+
                 listPurchase.setPurchaseList(hist, requireContext())
+
+                if(hist.size == 0){
+                    ShowMessage.showToast("Nenhuma compra foi encontrada dia $date",requireContext())
+                }
 
             }
 
@@ -267,18 +278,19 @@ class ListPurchasesFragment : Fragment() {
     }
 
 
-    private fun speak(){
+    private fun speak() {
         val mIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
         mIntent.putExtra(
             RecognizerIntent.EXTRA_LANGUAGE_MODEL,
-            RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+            RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
+        )
         mIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
         mIntent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Olá fale alguma coisa!")
 
         try {
-            startActivityForResult(mIntent,REQUEST_CODE_SPEECH_INPUT)
-        }catch(ex: Exception){
-            Toast.makeText(requireContext(),ex.message, Toast.LENGTH_SHORT).show()
+            startActivityForResult(mIntent, REQUEST_CODE_SPEECH_INPUT)
+        } catch (ex: Exception) {
+            Toast.makeText(requireContext(), ex.message, Toast.LENGTH_SHORT).show()
         }
 
 
@@ -287,10 +299,10 @@ class ListPurchasesFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        when(requestCode){
+        when (requestCode) {
 
-            REQUEST_CODE_SPEECH_INPUT ->{
-                if(resultCode == Activity.RESULT_OK && null != data){
+            REQUEST_CODE_SPEECH_INPUT -> {
+                if (resultCode == Activity.RESULT_OK && null != data) {
                     val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
                     editTextNewPurchase!!.setText(result?.get(0))
                     editTextNewPurchase!!.requestFocus()
