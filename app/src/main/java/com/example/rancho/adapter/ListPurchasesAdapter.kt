@@ -13,6 +13,7 @@ import com.example.rancho.ui.puchases.ListPurchasesFragmentDirections
 import com.example.rancho.ui.puchases.ListPurchasesViewModel
 import com.example.rancho.util.ViewModelInstance
 import com.orhanobut.hawk.Hawk
+import dominando.android.testeproduct.util.ShowMessage
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -53,16 +54,21 @@ class ListPurchasesAdapter() :
         if(purchaseList[position].active){
             status = "Ativo"
         }else{
-            status = "Inativo"
+            status = "Concluído"
         }
         holder.binding.txtStatusPurchase.text = status
 
         holder.itemView.setOnClickListener {
 
+            if(purchaseList[position].active){
 
-            Hawk.put("purchase", purchaseList[position])
-            val action = ListPurchasesFragmentDirections.actionListPurchasesFragmentToListProductFragment()
-            Navigation.findNavController(it).navigate(action)
+                Hawk.put("purchase", purchaseList[position])
+                val action = ListPurchasesFragmentDirections.actionListPurchasesFragmentToListProductFragment()
+                Navigation.findNavController(it).navigate(action)
+
+            }else{
+                ShowMessage.showToast("Esta compra já foi concluida!!",context!!)
+            }
 
         }
 
@@ -74,7 +80,8 @@ class ListPurchasesAdapter() :
                 setMessage("Deseja realmente deletar?")
                 setPositiveButton("Editar"){_,_ ->
 
-                viewModel.setUpdateStatus(purchaseList[position])
+                viewModel.setShopping(purchaseList[position])
+                viewModel.setUpdate(true)
 
                 }
 

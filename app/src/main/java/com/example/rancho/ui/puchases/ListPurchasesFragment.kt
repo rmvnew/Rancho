@@ -133,6 +133,7 @@ class ListPurchasesFragment : Fragment() {
                         savePurchase(editTextNewPurchase!!.text.trim().toString(),cbPurchase!!.isChecked)
                     }else{
                         updatePurchase(editTextNewPurchase!!.text.trim().toString(),cbPurchase!!.isChecked)
+                        viewModel.setUpdate(false)
                     }
                 } else {
                     ShowMessage.showToast("Informe o nome do supermercado", requireContext())
@@ -216,12 +217,12 @@ class ListPurchasesFragment : Fragment() {
         })
 
 
-        viewModel.updateStatus.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+        viewModel.updateStatus.observe(viewLifecycleOwner, {
 
-
-            purchase = it
-            showEditTextDialog(StatusPurchase.UPDATE)
-
+            purchase = viewModel.mShopping!!
+            if(it) {
+                showEditTextDialog(StatusPurchase.UPDATE)
+            }
         })
     }
 

@@ -142,8 +142,6 @@ class AddProductFragment : Fragment() {
                             setMessage("Deseja realmente deletar?")
                             setPositiveButton("Cancelar"){_,_ ->
 
-
-
                             }
 
                             setNegativeButton("Deletar"){_,_ ->
@@ -172,12 +170,9 @@ class AddProductFragment : Fragment() {
                 speak()
             }
 
-
         }
 
-
-
-
+        
     }
 
     private fun getProduct(): Product {

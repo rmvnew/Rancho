@@ -17,8 +17,8 @@ class ListPurchasesViewModel : ViewModel() {
     private var mDeletePurchase = MutableLiveData<String>()
     val deletePurchase : LiveData<String> = mDeletePurchase
 
-    private var mUpdateStatus = MutableLiveData<Shopping>()
-    val updateStatus : LiveData<Shopping> = mUpdateStatus
+    private var mUpdateStatus = MutableLiveData<Boolean>()
+    val updateStatus : LiveData<Boolean> = mUpdateStatus
 
 
     fun setNewPurchase() {
@@ -28,7 +28,7 @@ class ListPurchasesViewModel : ViewModel() {
 
     }
 
-
+    var mShopping:Shopping? = null
 
 
 
@@ -41,8 +41,12 @@ class ListPurchasesViewModel : ViewModel() {
         mDeletePurchase.value = status
     }
 
-    fun setUpdateStatus(shop:Shopping) {
-        mUpdateStatus.value = shop
+    fun setShopping(shop:Shopping) {
+       mShopping = shop
+    }
+
+    fun setUpdate(update: Boolean) {
+        mUpdateStatus.value = update
     }
 
 
