@@ -4,16 +4,24 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.speech.RecognizerIntent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
+import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.rancho.MainActivity
+import com.example.rancho.R
 import com.example.rancho.dao.ProductDatabase
 import com.example.rancho.databinding.FragmentAddProductBinding
+import com.example.rancho.enum.StatusPurchase
 import com.example.rancho.model.Product
 import com.example.rancho.model.Shopping
 import com.example.rancho.util.ViewModelInstance
@@ -92,7 +100,8 @@ class AddProductFragment : Fragment() {
 
                        }
                        productViewModel!!.setAction("add")
-                       findNavController().popBackStack()
+                       animationOk()
+                       //findNavController().popBackStack()
                    }else{
                        ShowMessage.showToast("Este produto já foi salvo!!\nDisponivel: Atualizar e/ou deletar", requireContext())
                    }
@@ -173,6 +182,29 @@ class AddProductFragment : Fragment() {
         }
 
         
+    }
+
+    private fun animationOk() {
+
+
+        val builder = AlertDialog.Builder(requireContext())
+        val inflater: LayoutInflater = layoutInflater
+        val dialogLayout: View = inflater.inflate(R.layout.item_confirmation, null)
+        builder.setView(dialogLayout)
+//        builder.setTitle("Produto salvo")
+//        builder.setMessage("O produto foi adicionado com sucesso a sua lista de compras!!")
+        val alert = builder.show()
+//        with(builder) {
+//
+//            setView(dialogLayout)
+//            show()
+//        }
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            alert.dismiss()
+            findNavController().popBackStack()
+        }, 3500)
+
     }
 
     private fun getProduct(): Product {

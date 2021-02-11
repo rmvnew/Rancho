@@ -55,6 +55,9 @@ class ListProductAdapter() : RecyclerView.Adapter<ListProductAdapter.ListProduct
             holder.binding.txtStatusProduct.setTextColor(Color.parseColor("#000000"))
         } else {
             result = "Aguardando"
+            holder.binding.cardStatusProduct.backgroundTintList =
+                ContextCompat.getColorStateList(context!!,R.color.CINZA_FORTE)
+            holder.binding.txtStatusProduct.setTextColor(Color.parseColor("#FFFFFF"))
         }
         holder.binding.txtStatusProduct.text = result
 
