@@ -71,7 +71,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Nome"
-                android:imeOptions="actionNext"
+                android:imeOptions="actionDone"
                 android:inputType="text" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -96,7 +96,7 @@
                 android:id="@+id/editProductQuantity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:imeOptions="actionNext"
+                android:imeOptions="actionDone"
                 android:hint="Quantidade"
                 android:inputType="number" />
 

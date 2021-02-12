@@ -10,18 +10,13 @@ import android.speech.RecognizerIntent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
-import android.widget.EditText
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.rancho.MainActivity
 import com.example.rancho.R
 import com.example.rancho.dao.ProductDatabase
 import com.example.rancho.databinding.FragmentAddProductBinding
-import com.example.rancho.enum.StatusPurchase
 import com.example.rancho.model.Product
 import com.example.rancho.model.Shopping
 import com.example.rancho.util.ViewModelInstance
@@ -38,7 +33,7 @@ class AddProductFragment : Fragment() {
     private val binding: FragmentAddProductBinding get() = _binding!!
     private lateinit var productViewModel: ProductViewModel
     private var id_shopping: Int? = null
-    private var product :Product? = null
+    private var product: Product? = null
     private val REQUEST_CODE_SPEECH_INPUT = 100
 
     override fun onCreateView(
@@ -47,6 +42,7 @@ class AddProductFragment : Fragment() {
     ): View {
 
         _binding = FragmentAddProductBinding.inflate(inflater, container, false)
+
         productViewModel = ViewModelInstance.getProductViewModel()
 
 
@@ -91,20 +87,23 @@ class AddProductFragment : Fragment() {
 
                 if (editProductName.text.toString().isNotEmpty()) {
 
-                   if(product == null){
-                       val prod = getProduct()
+                    if (product == null) {
+                        val prod = getProduct()
 
-                       GlobalScope.launch {
+                        GlobalScope.launch {
 
-                           ProductDatabase(requireContext()).getProductDao().addProduct(prod)
+                            ProductDatabase(requireContext()).getProductDao().addProduct(prod)
 
-                       }
-                       productViewModel!!.setAction("add")
-                       animationOk()
-                       //findNavController().popBackStack()
-                   }else{
-                       ShowMessage.showToast("Este produto já foi salvo!!\nDisponivel: Atualizar e/ou deletar", requireContext())
-                   }
+                        }
+                        productViewModel!!.setAction("add")
+                        animationOk()
+                        //findNavController().popBackStack()
+                    } else {
+                        ShowMessage.showToast(
+                            "Este produto já foi salvo!!\nDisponivel: Atualizar e/ou deletar",
+                            requireContext()
+                        )
+                    }
 
                 } else {
                     ShowMessage.showToast("Informe o nome do produto", requireContext())
@@ -115,7 +114,7 @@ class AddProductFragment : Fragment() {
             btnUpdateProduct.setOnClickListener {
 
                 if (editProductName.text.toString().isNotEmpty()) {
-                    if(product != null){
+                    if (product != null) {
                         val prod = getProduct()
                         prod.id = product!!.id
 
@@ -129,8 +128,11 @@ class AddProductFragment : Fragment() {
                         product = null
                         findNavController().popBackStack()
 
-                    }else{
-                        ShowMessage.showToast("O produto não esta salvo,\n Impossível atualizar", requireContext())
+                    } else {
+                        ShowMessage.showToast(
+                            "O produto não esta salvo,\n Impossível atualizar",
+                            requireContext()
+                        )
                     }
                 } else {
                     ShowMessage.showToast("Informe o nome do produto", requireContext())
@@ -142,22 +144,23 @@ class AddProductFragment : Fragment() {
 
             btnDeleteProduct.setOnClickListener {
                 if (editProductName.text.toString().isNotEmpty()) {
-                    if(product != null){
+                    if (product != null) {
                         val prod = getProduct()
                         prod.id = product!!.id
 
                         AlertDialog.Builder(requireContext()).apply {
-                            setTitle(prod.productName+" Selecionado!!")
+                            setTitle(prod.productName + " Selecionado!!")
                             setMessage("Deseja realmente deletar?")
-                            setPositiveButton("Cancelar"){_,_ ->
+                            setPositiveButton("Cancelar") { _, _ ->
 
                             }
 
-                            setNegativeButton("Deletar"){_,_ ->
+                            setNegativeButton("Deletar") { _, _ ->
 
                                 GlobalScope.launch {
 
-                                    ProductDatabase(requireContext()).getProductDao().deleteProduct(prod)
+                                    ProductDatabase(requireContext()).getProductDao()
+                                        .deleteProduct(prod)
 
                                 }
                                 productViewModel!!.setAction("delete")
@@ -166,8 +169,11 @@ class AddProductFragment : Fragment() {
 
                             }
                         }.create().show()
-                    }else{
-                        ShowMessage.showToast("O produto não esta salvo,\n Impossível deletar", requireContext())
+                    } else {
+                        ShowMessage.showToast(
+                            "O produto não esta salvo,\n Impossível deletar",
+                            requireContext()
+                        )
                     }
                 } else {
                     ShowMessage.showToast("Informe o nome do produto", requireContext())
@@ -181,29 +187,21 @@ class AddProductFragment : Fragment() {
 
         }
 
-        
+
     }
 
     private fun animationOk() {
-
 
         val builder = AlertDialog.Builder(requireContext())
         val inflater: LayoutInflater = layoutInflater
         val dialogLayout: View = inflater.inflate(R.layout.item_confirmation, null)
         builder.setView(dialogLayout)
-//        builder.setTitle("Produto salvo")
-//        builder.setMessage("O produto foi adicionado com sucesso a sua lista de compras!!")
         val alert = builder.show()
-//        with(builder) {
-//
-//            setView(dialogLayout)
-//            show()
-//        }
 
         Handler(Looper.getMainLooper()).postDelayed({
             alert.dismiss()
             findNavController().popBackStack()
-        }, 3500)
+        }, 2000)
 
     }
 
@@ -213,8 +211,16 @@ class AddProductFragment : Fragment() {
             return Product(
                 id_shopping!!,
                 editProductName.text.toString(),
-                if(editProductQuantity.text.toString().isNullOrEmpty()){1}else{editProductQuantity.text.toString().toInt()},
-                if(editProductValue.text.toString().isNullOrEmpty()){0.0}else{editProductValue.text.toString().replace(",", ".").toDouble()},
+                if (editProductQuantity.text.toString().isNullOrEmpty()) {
+                    1
+                } else {
+                    editProductQuantity.text.toString().toInt()
+                },
+                if (editProductValue.text.toString().isNullOrEmpty()) {
+                    0.0
+                } else {
+                    editProductValue.text.toString().replace(",", ".").toDouble()
+                },
                 cbProductDone.isChecked
             )
 
@@ -222,18 +228,19 @@ class AddProductFragment : Fragment() {
     }
 
 
-    private fun speak(){
+    private fun speak() {
         val mIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
         mIntent.putExtra(
             RecognizerIntent.EXTRA_LANGUAGE_MODEL,
-            RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+            RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
+        )
         mIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
         mIntent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Olá fale alguma coisa!")
 
         try {
-            startActivityForResult(mIntent,REQUEST_CODE_SPEECH_INPUT)
-        }catch(ex: Exception){
-            Toast.makeText(requireContext(),ex.message, Toast.LENGTH_SHORT).show()
+            startActivityForResult(mIntent, REQUEST_CODE_SPEECH_INPUT)
+        } catch (ex: Exception) {
+            Toast.makeText(requireContext(), ex.message, Toast.LENGTH_SHORT).show()
         }
 
 
@@ -242,10 +249,10 @@ class AddProductFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        when(requestCode){
+        when (requestCode) {
 
-            REQUEST_CODE_SPEECH_INPUT ->{
-                if(resultCode == Activity.RESULT_OK && null != data){
+            REQUEST_CODE_SPEECH_INPUT -> {
+                if (resultCode == Activity.RESULT_OK && null != data) {
                     val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
                     binding.editProductName.setText(result?.get(0))
                     binding.editProductQuantity.requestFocus()
@@ -254,9 +261,6 @@ class AddProductFragment : Fragment() {
         }
 
     }
-
-
-
 
 
 }

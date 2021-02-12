@@ -119,6 +119,8 @@ class ListPurchasesFragment : Fragment() {
         if (status == StatusPurchase.UPDATE) {
             editTextNewPurchase!!.setText(purchase.name)
             cbPurchase!!.isChecked = purchase.active
+        } else {
+            cbPurchase!!.isChecked = true
         }
 
         btnSpeak!!.setOnClickListener {
@@ -254,8 +256,11 @@ class ListPurchasesFragment : Fragment() {
 
                 listPurchase.setPurchaseList(hist, requireContext())
 
-                if(hist.size == 0){
-                    ShowMessage.showToast("Nenhuma compra foi encontrada dia $date",requireContext())
+                if (hist.size == 0) {
+                    ShowMessage.showToast(
+                        "Nenhuma compra foi encontrada dia $date",
+                        requireContext()
+                    )
                 }
 
             }
