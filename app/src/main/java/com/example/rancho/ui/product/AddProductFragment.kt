@@ -71,7 +71,11 @@ class AddProductFragment : Fragment() {
             product?.let {
                 editProductName.setText(product!!.productName)
                 editProductQuantity.setText(product!!.productQuantity.toString())
-                editProductValue.setText(product!!.productValue.toString())
+                if(product!!.productValue != 0.0){
+                    editProductValue.setText(product!!.productValue.toString())
+                }else{
+                    editProductValue.setText("")
+                }
                 cbProductDone.isChecked = product!!.productDone
             }
 
