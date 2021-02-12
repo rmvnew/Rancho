@@ -205,7 +205,7 @@ class AddProductFragment : Fragment() {
         Handler(Looper.getMainLooper()).postDelayed({
             alert.dismiss()
             findNavController().popBackStack()
-        }, 2000)
+        }, 1800)
 
     }
 

@@ -10,9 +10,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.createDataStore
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.rancho.MainActivity
 import com.example.rancho.R
@@ -102,6 +106,11 @@ class ListPurchasesFragment : Fragment() {
                     cal.get(Calendar.DAY_OF_MONTH)
                 ).show()
 
+            }
+
+
+            btnSettings.setOnClickListener {
+                findNavController().navigate(R.id.action_listPurchasesFragment_to_settingsFragment)
             }
         }
 
