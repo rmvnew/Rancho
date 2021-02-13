@@ -30,6 +30,7 @@ import com.example.rancho.model.Shopping
 import com.example.rancho.util.DateUtil
 import com.example.rancho.util.PluralWordsUtil
 import com.example.rancho.util.ViewModelInstance
+import com.github.barteksc.pdfviewer.PDFView
 import dominando.android.testeproduct.util.ShowMessage
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -47,6 +48,7 @@ class ListPurchasesFragment : Fragment() {
     private var editTextNewPurchase: EditText? = null
     private var cbPurchase: CheckBox? = null
     private var btnSpeak: ImageView? = null
+//    private var pdfView:PDFView? = null
 
 
     override fun onCreateView(
@@ -116,6 +118,13 @@ class ListPurchasesFragment : Fragment() {
             }
 
 
+            btnHelp.setOnClickListener {
+
+                showPDF()
+
+            }
+
+
         }
 
     }
@@ -159,6 +168,27 @@ class ListPurchasesFragment : Fragment() {
                 } else {
                     ShowMessage.showToast("Informe o nome do supermercado", requireContext())
                 }
+
+            }
+            setView(dialogLayout)
+            show()
+        }
+
+    }
+
+
+    private fun showPDF(){
+        val builder = AlertDialog.Builder(requireContext())
+        val inflater: LayoutInflater = layoutInflater
+        val dialogLayout: View = inflater.inflate(R.layout.item_help_pdf, null)
+        var pdfView = dialogLayout.findViewById<PDFView>(R.id.PDFView)
+
+        pdfView.fromAsset("meu_rancho.pdf").load()
+
+        with(builder) {
+            setTitle("LEIA-ME")
+            setPositiveButton("OK") { dialog, whith ->
+
 
             }
             setView(dialogLayout)

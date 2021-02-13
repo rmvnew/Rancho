@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.rancho.model.Product
+import com.example.rancho.model.ProductInCart
 
 class ProductViewModel : ViewModel() {
 
@@ -13,6 +14,9 @@ class ProductViewModel : ViewModel() {
     private var mTotalValue = MutableLiveData<List<Product>>()
     val totalValue : LiveData<List<Product>> = mTotalValue
 
+    private var mProductLack = MutableLiveData<ProductInCart>()
+    val productLack : LiveData<ProductInCart> = mProductLack
+
 
 
     fun setAction(action: String) {
@@ -21,6 +25,10 @@ class ProductViewModel : ViewModel() {
 
     fun setTotalValue(hist: List<Product>) {
         mTotalValue.value = hist
+    }
+
+    fun setProductLack(productLack: ProductInCart) {
+        mProductLack.value = productLack
     }
 
 

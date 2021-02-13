@@ -72,6 +72,14 @@ class ListProductFragment : Fragment() {
             binding.txtTotalValue.setText("R$ "+String.format("%.2f",total))
 
         })
+
+        productViewModel.productLack.observe(viewLifecycleOwner, Observer {
+
+            val result = "${it.lack} / ${it.total}"
+
+            binding.txtQuantityDone.text = result
+
+        })
     }
 
     private fun actions() {

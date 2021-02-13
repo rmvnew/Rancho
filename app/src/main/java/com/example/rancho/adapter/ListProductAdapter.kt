@@ -13,13 +13,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.rancho.R
 import com.example.rancho.databinding.ItemProductBinding
 import com.example.rancho.model.Product
+import com.example.rancho.model.ProductInCart
 import com.example.rancho.ui.product.ListProductFragmentDirections
+import com.example.rancho.ui.product.ProductViewModel
+import com.example.rancho.util.ViewModelInstance
 import java.text.NumberFormat
 
 class ListProductAdapter() : RecyclerView.Adapter<ListProductAdapter.ListProductViewHolder>() {
     var context: Context? = null
 
     private var productList: List<Product> = emptyList()
+    lateinit var viewModel: ProductViewModel
 
     fun setProductList(list: List<Product>,context: Context) {
         this.productList = list
@@ -40,8 +44,12 @@ class ListProductAdapter() : RecyclerView.Adapter<ListProductAdapter.ListProduct
     @SuppressLint("ResourceAsColor")
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onBindViewHolder(holder: ListProductViewHolder, position: Int) {
+        viewModel = ViewModelInstance.getProductViewModel()
 
         var result = ""
+
+        val productLack = ProductInCart(productList.size,productList.filter { it.productDone }.size)
+        viewModel.setProductLack(productLack)
 
         holder.binding.txtNameProduct.text = productList[position].productName
         holder.binding.txtQuantity.text = productList[position].productQuantity.toString()
