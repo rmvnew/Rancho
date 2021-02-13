@@ -6,6 +6,7 @@ import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.speech.RecognizerIntent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,6 +28,7 @@ import com.example.rancho.enum.SearchType
 import com.example.rancho.enum.StatusPurchase
 import com.example.rancho.model.Shopping
 import com.example.rancho.util.DateUtil
+import com.example.rancho.util.PluralWordsUtil
 import com.example.rancho.util.ViewModelInstance
 import dominando.android.testeproduct.util.ShowMessage
 import kotlinx.coroutines.GlobalScope
@@ -112,6 +114,8 @@ class ListPurchasesFragment : Fragment() {
             btnSettings.setOnClickListener {
                 findNavController().navigate(R.id.action_listPurchasesFragment_to_settingsFragment)
             }
+
+
         }
 
     }

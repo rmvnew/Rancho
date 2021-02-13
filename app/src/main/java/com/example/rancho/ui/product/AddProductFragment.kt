@@ -3,6 +3,7 @@ package com.example.rancho.ui.product
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -11,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -19,10 +21,11 @@ import com.example.rancho.dao.ProductDatabase
 import com.example.rancho.databinding.FragmentAddProductBinding
 import com.example.rancho.model.Product
 import com.example.rancho.model.Shopping
-import com.example.rancho.util.ViewModelInstance
+import com.example.rancho.util.*
 import com.orhanobut.hawk.Hawk
 import dominando.android.testeproduct.util.ShowMessage
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -35,6 +38,8 @@ class AddProductFragment : Fragment() {
     private var id_shopping: Int? = null
     private var product: Product? = null
     private val REQUEST_CODE_SPEECH_INPUT = 100
+    private var confSpeech :Boolean? = null
+    private lateinit var speechManager: SpeechManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,7 +47,7 @@ class AddProductFragment : Fragment() {
     ): View {
 
         _binding = FragmentAddProductBinding.inflate(inflater, container, false)
-
+        speechManager = SpeechManager(requireContext()).apply { init(Language.PORTUGUESE) }
         productViewModel = ViewModelInstance.getProductViewModel()
 
 
@@ -52,6 +57,7 @@ class AddProductFragment : Fragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -83,6 +89,7 @@ class AddProductFragment : Fragment() {
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun actions() {
 
         binding.apply {
@@ -99,6 +106,7 @@ class AddProductFragment : Fragment() {
                             ProductDatabase(requireContext()).getProductDao().addProduct(prod)
 
                         }
+                        notifyIncludedProduct(prod)
                         productViewModel!!.setAction("add")
                         animationOk()
                         //findNavController().popBackStack()
@@ -190,6 +198,26 @@ class AddProductFragment : Fragment() {
             }
 
         }
+
+
+    }
+
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    private fun notifyIncludedProduct(prod: Product) {
+
+        MainScope().launch {
+            confSpeech = DataStoreUtil(requireContext()).readBoolean("speech")
+
+            if(confSpeech == true){
+                if(prod.productQuantity == 1) {
+                    speechManager.speechToText("${prod.productName} foi adicionado a sua lista")
+                }else{
+                    speechManager.speechToText("${prod.productQuantity} ${PluralWordsUtil.setStringPlural(prod.productName)} foram adicionados a sua lista")
+                }
+            }
+
+        }
+
 
 
     }
