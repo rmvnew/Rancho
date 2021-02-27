@@ -8,9 +8,14 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.speech.RecognizerIntent
+import android.text.InputType
+import android.text.method.DigitsKeyListener
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
@@ -38,8 +43,10 @@ class AddProductFragment : Fragment() {
     private var id_shopping: Int? = null
     private var product: Product? = null
     private val REQUEST_CODE_SPEECH_INPUT = 100
-    private var confSpeech :Boolean? = null
+    private var confSpeech: Boolean? = null
     private lateinit var speechManager: SpeechManager
+    private var typeOfMeasure: String? = null
+    private var valueSpType: Int? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -65,6 +72,7 @@ class AddProductFragment : Fragment() {
 
         checkProduct()
         actions()
+        setSpinner()
 
     }
 
@@ -76,13 +84,29 @@ class AddProductFragment : Fragment() {
 
             product?.let {
                 editProductName.setText(product!!.productName)
-                editProductQuantity.setText(product!!.productQuantity.toString())
-                if(product!!.productValue != 0.0){
+//                editProductQuantity.setText(product!!.productQuantity.toString())
+                if (product!!.productValue != 0.0) {
                     editProductValue.setText(product!!.productValue.toString())
-                }else{
+                } else {
                     editProductValue.setText("")
                 }
                 cbProductDone.isChecked = product!!.productDone
+                Log.i("res", "==>>" + product!!.typeOfMeasure)
+
+                when(product!!.typeOfMeasure){
+                    "Und" -> {
+                        valueSpType = 0
+                        editProductQuantity.setText(product!!.productQuantity.toInt().toString())
+                        Log.i("res", "==>> 0")
+                    }
+                    "Kg" -> {
+                        valueSpType = 1
+                        editProductQuantity.setText(product!!.productQuantity.toString())
+                        Log.i("res", "==>> 1")
+                    }
+                }
+
+
             }
 
         }
@@ -208,16 +232,21 @@ class AddProductFragment : Fragment() {
         MainScope().launch {
             confSpeech = DataStoreUtil(requireContext()).readBoolean("speech")
 
-            if(confSpeech == true){
-                if(prod.productQuantity == 1) {
+            if (confSpeech == true) {
+                if (prod.productQuantity == 1.0) {
                     speechManager.speechToText("${prod.productName} foi adicionado a sua lista")
-                }else{
-                    speechManager.speechToText("${prod.productQuantity} ${PluralWordsUtil.setStringPlural(prod.productName)} foram adicionados a sua lista")
+                } else {
+                    speechManager.speechToText(
+                        "${prod.productQuantity} ${
+                            PluralWordsUtil.setStringPlural(
+                                prod.productName
+                            )
+                        } foram adicionados a sua lista"
+                    )
                 }
             }
 
         }
-
 
 
     }
@@ -244,16 +273,17 @@ class AddProductFragment : Fragment() {
                 id_shopping!!,
                 editProductName.text.toString(),
                 if (editProductQuantity.text.toString().isNullOrEmpty()) {
-                    1
+                    1.0
                 } else {
-                    editProductQuantity.text.toString().toInt()
+                    editProductQuantity.text.toString().replace(",", ".").toDouble()
                 },
                 if (editProductValue.text.toString().isNullOrEmpty()) {
                     0.0
                 } else {
                     editProductValue.text.toString().replace(",", ".").toDouble()
                 },
-                cbProductDone.isChecked
+                cbProductDone.isChecked,
+                typeOfMeasure ?: "Und"
             )
 
         }
@@ -292,6 +322,48 @@ class AddProductFragment : Fragment() {
             }
         }
 
+    }
+
+
+    fun setSpinner() {
+
+        val listYears = listOf("Und", "Kg")
+
+        binding.spType.adapter =
+            ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, listYears)
+
+
+
+        valueSpType?.let {
+            binding.spType.setSelection(it)
+        }
+        binding.spType.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+
+            @RequiresApi(Build.VERSION_CODES.O)
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+
+                typeOfMeasure = binding.spType.selectedItem.toString()
+                when(typeOfMeasure){
+                    "Und" -> {
+                        binding.editProductQuantity.inputType = InputType.TYPE_CLASS_NUMBER
+                    }
+                    "Kg" -> {
+                        binding.editProductQuantity.inputType =
+                            (InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL or InputType.TYPE_NUMBER_FLAG_SIGNED)
+                        binding.editProductQuantity.setKeyListener(DigitsKeyListener.getInstance("0123456789.,"))
+                    }
+                }
+
+            }
+        }
     }
 
 

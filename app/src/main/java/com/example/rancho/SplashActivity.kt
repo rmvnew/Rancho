@@ -6,6 +6,7 @@ import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import com.example.rancho.databinding.ActivitySplashBinding
+import java.lang.StringBuilder
 
 class SplashActivity : AppCompatActivity() {
 
@@ -18,6 +19,8 @@ class SplashActivity : AppCompatActivity() {
         binding = ActivitySplashBinding.inflate(layoutInflater)
 
         binding.txtName.animate().translationX(-1600F).setDuration(1000).setStartDelay(4030)
+
+        binding.txtVersion.text = "Versão 1.0.1  - by ${StringBuilder("R1C4RD0").reversed()}"
 
         setContentView(binding.root)
 

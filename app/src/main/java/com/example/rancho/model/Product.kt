@@ -9,9 +9,10 @@ class Product(
 
     val id_shopping:Int,
     val productName:String,
-    val productQuantity: Int,
+    val productQuantity: Double,
     val productValue:Double,
-    val productDone:Boolean
+    val productDone:Boolean,
+    val typeOfMeasure: String
 
 ):Serializable{
     @PrimaryKey(autoGenerate = true)
