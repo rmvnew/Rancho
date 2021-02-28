@@ -6,14 +6,10 @@ import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.speech.RecognizerIntent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.createDataStore
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -28,7 +24,6 @@ import com.example.rancho.enum.SearchType
 import com.example.rancho.enum.StatusPurchase
 import com.example.rancho.model.Shopping
 import com.example.rancho.util.DateUtil
-import com.example.rancho.util.PluralWordsUtil
 import com.example.rancho.util.ViewModelInstance
 import com.github.barteksc.pdfviewer.PDFView
 import dominando.android.testeproduct.util.ShowMessage
@@ -125,6 +120,14 @@ class ListPurchasesFragment : Fragment() {
             }
 
 
+            swipRecyclerPurchase.setOnRefreshListener {
+
+                callRecyclerView(null)
+                swipRecyclerPurchase.isRefreshing = false
+
+            }
+
+
         }
 
     }
@@ -133,7 +136,7 @@ class ListPurchasesFragment : Fragment() {
 
         val builder = AlertDialog.Builder(requireContext())
         val inflater: LayoutInflater = layoutInflater
-        val dialogLayout: View = inflater.inflate(R.layout.edit_text_purchase, null)
+        val dialogLayout: View = inflater.inflate(R.layout.item_edit_text_purchase, null)
         editTextNewPurchase = dialogLayout.findViewById<EditText>(R.id.editPurchaseName)
         cbPurchase = dialogLayout.findViewById<CheckBox>(R.id.cbPurchaseActive)
         btnSpeak = dialogLayout.findViewById<ImageView>(R.id.btnSpeak)

@@ -8,18 +8,16 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/materialCardView"
-        android:backgroundTint="@color/AZUL_STEEL_BLUE3"
-        android:layout_marginBottom="5dp"
-        android:layout_marginRight="25dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="5dp"
-        app:cardCornerRadius="30dp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:backgroundTint="@color/AZUL_STEEL_BLUE3"
+        app:cardCornerRadius="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
+        app:layout_constraintTop_toTopOf="parent">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -32,10 +30,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginLeft="32dp"
-                android:textSize="11dp"
                 android:layout_marginTop="5dp"
-                android:textColor="@color/AZUL_DEEP_SKYE"
                 android:text="@string/product"
+                android:textColor="@color/AZUL_DEEP_SKYE"
+                android:textSize="11dp"
                 android:textStyle="bold|italic"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -46,10 +44,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
+                android:text="TextView"
+                android:textColor="@color/white"
                 android:textSize="11dp"
                 android:textStyle="bold|italic"
-                android:textColor="@color/white"
-                android:text="TextView"
                 app:layout_constraintBaseline_toBaselineOf="@+id/infoNameProduct"
                 app:layout_constraintStart_toEndOf="@+id/infoNameProduct" />
 
@@ -59,9 +57,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginLeft="32dp"
-                android:textSize="11dp"
-                android:textColor="@color/AZUL_DEEP_SKYE"
                 android:text="@string/quantity"
+                android:textColor="@color/AZUL_DEEP_SKYE"
+                android:textSize="11dp"
                 android:textStyle="bold|italic"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/infoNameProduct" />
@@ -72,10 +70,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
+                android:text="TextView"
+                android:textColor="@color/white"
                 android:textSize="11dp"
                 android:textStyle="bold|italic"
-                android:textColor="@color/white"
-                android:text="TextView"
                 app:layout_constraintBaseline_toBaselineOf="@+id/infoQuantity"
                 app:layout_constraintStart_toEndOf="@+id/infoQuantity" />
 
@@ -85,12 +83,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
-                android:textSize="11dp"
                 android:text="@string/value"
                 android:textColor="@color/AZUL_DEEP_SKYE"
+                android:textSize="11dp"
                 android:textStyle="bold|italic"
                 app:layout_constraintBaseline_toBaselineOf="@+id/txtQuantity"
                 app:layout_constraintStart_toEndOf="@+id/txtQuantity" />
+
 
             <TextView
                 android:id="@+id/txtValue"
@@ -98,12 +97,38 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
-                android:textSize="11dp"
                 android:text="TextView"
                 android:textColor="@color/white"
+                android:textSize="11dp"
                 android:textStyle="bold|italic"
                 app:layout_constraintBaseline_toBaselineOf="@+id/infoValue"
                 app:layout_constraintStart_toEndOf="@+id/infoValue" />
+
+            <TextView
+                android:id="@+id/infoSubTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:textColor="@color/AZUL_DEEP_SKYE"
+                android:textSize="11dp"
+                android:textStyle="bold|italic"
+                android:text="Subtotal"
+                app:layout_constraintBaseline_toBaselineOf="@+id/txtValue"
+                app:layout_constraintStart_toEndOf="@+id/txtValue" />
+
+            <TextView
+                android:id="@+id/txtSubTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:textColor="@color/white"
+                android:textSize="11dp"
+                android:textStyle="bold|italic"
+                android:text="TextView"
+                app:layout_constraintBaseline_toBaselineOf="@+id/infoSubTotal"
+                app:layout_constraintStart_toEndOf="@+id/infoSubTotal" />
 
 
             <com.google.android.material.card.MaterialCardView
@@ -111,11 +136,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
                 android:layout_marginLeft="30dp"
-                app:cardCornerRadius="10dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginRight="30dp"
                 android:layout_marginBottom="8dp"
-                android:layout_marginTop="5dp"
                 android:backgroundTint="@color/CINZA_FORTE"
+                app:cardCornerRadius="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -130,9 +155,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical|center_horizontal"
+                        android:text="Aguardando"
                         android:textColor="@color/BRANCO"
                         android:textSize="12dp"
-                        android:text="Aguardando"
                         android:textStyle="bold|italic"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"

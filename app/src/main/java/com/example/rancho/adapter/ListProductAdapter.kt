@@ -56,6 +56,8 @@ class ListProductAdapter() : RecyclerView.Adapter<ListProductAdapter.ListProduct
             holder.binding.txtValue.text =
                 "R$ ${String.format("%.2f", productList[position].productValue)}"
 
+        holder.binding.txtSubTotal.text =
+            "R$ ${String.format("%.2f",(productList[position].productQuantity * productList[position].productValue))}"
 
         if (productList[position].productDone) {
             result = "Concluído"

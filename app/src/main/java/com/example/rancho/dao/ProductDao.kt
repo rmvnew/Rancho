@@ -13,6 +13,9 @@ interface ProductDao {
     @Query("SELECT * FROM product WHERE id_shopping = :thisId ORDER BY productDone ASC")
     suspend fun getAllProducts(thisId:String):List<Product>
 
+    @Query("SELECT * FROM PRODUCT WHERE productName LIKE :name" )
+    suspend fun getProductByName(name:String):List<Product>
+
     @Update
     suspend fun updateProduct(prod: Product)
 

@@ -108,38 +108,116 @@
 
     </com.google.android.material.card.MaterialCardView>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerProduct"
-        android:layout_width="388dp"
+<!--    <com.google.android.material.card.MaterialCardView-->
+<!--        android:id="@+id/cardSearch"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="80dp"-->
+<!--        android:layout_marginStart="16dp"-->
+<!--        android:layout_marginLeft="16dp"-->
+<!--        android:layout_marginEnd="16dp"-->
+<!--        android:layout_marginRight="16dp"-->
+<!--        android:animateLayoutChanges="true"-->
+<!--        app:strokeColor="#ffffff"-->
+<!--        android:visibility="gone"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/cardListPurchases">-->
+
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent">-->
+
+<!--            <com.google.android.material.textfield.TextInputLayout-->
+<!--                android:id="@+id/infoSearchProduct"-->
+<!--                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="70dp"-->
+<!--                android:layout_marginStart="16dp"-->
+<!--                android:layout_marginLeft="16dp"-->
+<!--                android:layout_marginTop="8dp"-->
+<!--                android:layout_marginEnd="24dp"-->
+<!--                android:layout_marginRight="24dp"-->
+<!--                app:layout_constraintEnd_toStartOf="@+id/btnSpeak"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent">-->
+
+
+<!--                <com.google.android.material.textfield.TextInputEditText-->
+<!--                    android:id="@+id/editSearchProductName"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:hint="Nome"-->
+<!--                    android:imeOptions="actionDone"-->
+<!--                    android:inputType="text" />-->
+
+<!--            </com.google.android.material.textfield.TextInputLayout>-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/btnSpeak"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="16dp"-->
+<!--                android:layout_marginEnd="16dp"-->
+<!--                android:layout_marginRight="16dp"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                app:srcCompat="@drawable/ic_speak_mod"-->
+<!--                app:tint="@color/AZUL_STEEL_BLUE3"-->
+<!--                tools:ignore="VectorDrawableCompat" />-->
+
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--    </com.google.android.material.card.MaterialCardView>-->
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipRecyclerPorduct"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardListPurchases" />
+        app:layout_constraintTop_toBottomOf="@+id/cardListPurchases">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerProduct"
+            android:layout_width="388dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardListPurchases" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnAddNewProduct"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="16dp"
         android:backgroundTint="@color/AZUL_STEEL_BLUE"
-        android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"
-        android:layout_marginBottom="32dp"
         android:clickable="true"
         android:src="@drawable/ic_baseline_add_24"
-        app:tint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tint="@color/white" />
 
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/labelAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/CINZA_CLARO"
@@ -148,6 +226,31 @@
         app:layout_constraintBottom_toTopOf="@+id/btnAddNewProduct"
         app:layout_constraintEnd_toEndOf="@+id/btnAddNewProduct"
         app:layout_constraintStart_toStartOf="@+id/btnAddNewProduct" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnSearchProduct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="@color/AZUL_STEEL_BLUE"
+        android:clickable="true"
+        android:src="@drawable/ic_baseline_search_24"
+        app:layout_constraintBottom_toTopOf="@+id/labelAdd"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tint="@color/white" />
+
+    <TextView
+        android:id="@+id/labelSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/CINZA_CLARO"
+        android:text="Buscar"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toTopOf="@+id/btnSearchProduct"
+        app:layout_constraintEnd_toEndOf="@+id/btnSearchProduct"
+        app:layout_constraintStart_toStartOf="@+id/btnSearchProduct" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
