@@ -20,6 +20,7 @@ import com.example.rancho.R
 import com.example.rancho.adapter.ListPurchasesAdapter
 import com.example.rancho.dao.ProductDatabase
 import com.example.rancho.databinding.FragmentListPurchasesBinding
+import com.example.rancho.enum.SearchDate
 import com.example.rancho.enum.SearchType
 import com.example.rancho.enum.StatusPurchase
 import com.example.rancho.model.Shopping
@@ -32,6 +33,8 @@ import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
+
+
 class ListPurchasesFragment : Fragment() {
 
     private var _binding: FragmentListPurchasesBinding? = null
@@ -43,8 +46,8 @@ class ListPurchasesFragment : Fragment() {
     private var editTextNewPurchase: EditText? = null
     private var cbPurchase: CheckBox? = null
     private var btnSpeak: ImageView? = null
-//    private var pdfView:PDFView? = null
-
+    private var txtDate:TextView? = null
+    private var btnDate:ImageView? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -83,31 +86,6 @@ class ListPurchasesFragment : Fragment() {
             }
 
 
-            btnSearchShopping.setOnClickListener {
-
-                val dateSetListener = object : DatePickerDialog.OnDateSetListener {
-                    override fun onDateSet(
-                        view: DatePicker, year: Int, monthOfYear: Int,
-                        dayOfMonth: Int
-                    ) {
-                        cal.set(Calendar.YEAR, year)
-                        cal.set(Calendar.MONTH, monthOfYear)
-                        cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                        updateDateInView()
-                    }
-                }
-
-                DatePickerDialog(
-                    requireContext(),
-                    dateSetListener,
-                    cal.get(Calendar.YEAR),
-                    cal.get(Calendar.MONTH),
-                    cal.get(Calendar.DAY_OF_MONTH)
-                ).show()
-
-            }
-
-
             btnSettings.setOnClickListener {
                 findNavController().navigate(R.id.action_listPurchasesFragment_to_settingsFragment)
             }
@@ -128,9 +106,50 @@ class ListPurchasesFragment : Fragment() {
             }
 
 
+            btnSearchShopping.setOnClickListener {
+
+               setPickerDate(SearchDate.SEARCH)
+
+            }
+
+
         }
 
     }
+
+    private fun setPickerDate(searchDate: SearchDate) {
+
+
+        val dateSetListener =
+            DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+                cal.set(Calendar.YEAR, year)
+                cal.set(Calendar.MONTH, monthOfYear)
+                cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                updateDateInView(searchDate)
+            }
+
+        DatePickerDialog(
+            requireContext(),
+            dateSetListener,
+            cal.get(Calendar.YEAR),
+            cal.get(Calendar.MONTH),
+            cal.get(Calendar.DAY_OF_MONTH)
+        ).show()
+
+
+    }
+
+
+    private fun updateDateInView(searchDate: SearchDate) {
+        val myDateFormat = "dd/MM/yyyy" // mention the format you need
+        val sdf = SimpleDateFormat(myDateFormat, Locale.US)
+        when(searchDate){
+            SearchDate.SEARCH -> viewModel.setDateNewOrder(sdf.format(cal.time))
+            SearchDate.ADD -> txtDate!!.text = sdf.format(cal.time)
+        }
+    }
+
+
 
     private fun showEditTextDialog(status: StatusPurchase) {
 
@@ -140,16 +159,23 @@ class ListPurchasesFragment : Fragment() {
         editTextNewPurchase = dialogLayout.findViewById<EditText>(R.id.editPurchaseName)
         cbPurchase = dialogLayout.findViewById<CheckBox>(R.id.cbPurchaseActive)
         btnSpeak = dialogLayout.findViewById<ImageView>(R.id.btnSpeak)
+        txtDate = dialogLayout.findViewById<TextView>(R.id.txtDate)
+        btnDate = dialogLayout.findViewById<ImageView>(R.id.btnDate)
 
         if (status == StatusPurchase.UPDATE) {
             editTextNewPurchase!!.setText(purchase.name)
             cbPurchase!!.isChecked = purchase.active
+            txtDate!!.text = purchase.dateShopping
         } else {
             cbPurchase!!.isChecked = true
         }
 
         btnSpeak!!.setOnClickListener {
             speak()
+        }
+
+        btnDate!!.setOnClickListener {
+            setPickerDate(SearchDate.ADD)
         }
 
         with(builder) {
@@ -202,47 +228,49 @@ class ListPurchasesFragment : Fragment() {
 
 
     private fun savePurchase(name: String, isActive: Boolean) {
-        val shop = Shopping(
-            name,
-            DateUtil.getCurrentDate(),
-            DateUtil.getCurrentTime(),
-            isActive
-        )
 
-        GlobalScope.launch {
-            ProductDatabase(requireContext()).getShoppingDao().addShopping(shop)
+       if(txtDate!!.text.isNotEmpty()){
+           val shop = Shopping(
+               name,
+               DateUtil.getCurrentDate(cal),
+               DateUtil.getCurrentTime(cal),
+               isActive
+           )
 
-        }
+           GlobalScope.launch {
+               ProductDatabase(requireContext()).getShoppingDao().addShopping(shop)
 
-        viewModel.setNewPurchase()
+           }
+
+           viewModel.setNewPurchase()
+       }
+
     }
 
     private fun updatePurchase(name: String, isActive: Boolean) {
-        val shop = Shopping(
-            name,
-            DateUtil.getCurrentDate(),
-            DateUtil.getCurrentTime(),
-            isActive
-        )
 
-        shop.id = purchase.id
+       if(txtDate!!.text.isNotEmpty()){
+           val shop = Shopping(
+               name,
+               DateUtil.getCurrentDate(cal),
+               DateUtil.getCurrentTime(cal),
+               isActive
+           )
 
-        GlobalScope.launch {
-            ProductDatabase(requireContext()).getShoppingDao().updateShopping(shop)
+           shop.id = purchase.id
 
-        }
+           GlobalScope.launch {
+               ProductDatabase(requireContext()).getShoppingDao().updateShopping(shop)
 
-        viewModel.setNewPurchase()
+           }
+
+           viewModel.setNewPurchase()
+       }
+
     }
 
 
-    private fun updateDateInView() {
-        val myDateFormat = "dd/MM/yyyy" // mention the format you need
-        val myTimeFormat = "HH:mm:ss" // mention the format you need
-        val sdf = SimpleDateFormat(myDateFormat, Locale.US)
-        val stf = SimpleDateFormat(myTimeFormat, Locale.US)
-        viewModel.setDateNewOrder(sdf.format(cal.getTime()))
-    }
+
 
     private fun observer() {
         viewModel.dateOfPayment.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
@@ -307,6 +335,7 @@ class ListPurchasesFragment : Fragment() {
                         "Nenhuma compra foi encontrada dia $date",
                         requireContext()
                     )
+                    callRecyclerView(null)
                 }
 
             }

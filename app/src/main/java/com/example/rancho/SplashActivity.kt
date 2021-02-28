@@ -20,7 +20,7 @@ class SplashActivity : AppCompatActivity() {
 
         binding.txtName.animate().translationX(-1600F).setDuration(1000).setStartDelay(4030)
 
-        binding.txtVersion.text = "Versão 1.0.1  - by ${StringBuilder("R1C4RD0").reversed()}"
+        binding.txtVersion.text = "Versão 2.0.1  - by ${StringBuilder("R1C4RD0").reversed()}"
 
         setContentView(binding.root)
 

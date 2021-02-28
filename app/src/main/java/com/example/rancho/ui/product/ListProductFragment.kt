@@ -1,14 +1,17 @@
 package com.example.rancho.ui.product
 
+import android.app.Activity
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
+import android.speech.RecognizerIntent
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -24,7 +27,9 @@ import com.example.rancho.model.Product
 import com.example.rancho.model.Shopping
 import com.example.rancho.util.ViewModelInstance
 import com.orhanobut.hawk.Hawk
+import dominando.android.testeproduct.util.ShowMessage
 import kotlinx.coroutines.launch
+import java.util.*
 
 
 class ListProductFragment : Fragment() {
@@ -35,6 +40,8 @@ class ListProductFragment : Fragment() {
     private var id_shopping: Int? = null
     private var editTextSearchProduct: EditText? = null
     private var btnSpeak: ImageView? = null
+    private val REQUEST_CODE_SPEECH_INPUT = 100
+    private var alert: AlertDialog? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -109,6 +116,14 @@ class ListProductFragment : Fragment() {
                 SearchType.NAME -> {
                     hist = ProductDatabase(requireContext()).getProductDao()
                         .getProductByName("%$query%")
+
+                    if (hist.size == 0) {
+                        ShowMessage.showToast(
+                            "$query não foi encontrado ",
+                            requireContext()
+                        )
+                        prepareSearch(SearchType.ALL)
+                    }
                 }
             }
 
@@ -136,7 +151,6 @@ class ListProductFragment : Fragment() {
 
             btnSearchProduct.setOnClickListener {
 
-                Toast.makeText(requireContext(), "teste", Toast.LENGTH_SHORT).show()
                 showEditTextDialog()
 
 
@@ -162,21 +176,57 @@ class ListProductFragment : Fragment() {
         btnSpeak = dialogLayout.findViewById<ImageView>(R.id.btnSpeakProduct)
 
 
-        editTextSearchProduct!!.addTextChangedListener {
-            prepareSearch(SearchType.NAME, editTextSearchProduct!!.text.toString())
-        }
+//        editTextSearchProduct!!.addTextChangedListener {
+//            prepareSearch(SearchType.NAME, editTextSearchProduct!!.text.toString())
+//        }
 
         btnSpeak!!.setOnClickListener {
-            // speak()
+            speak()
         }
 
-        with(builder) {
+        alert = with(builder) {
             setTitle("Informe o nome do Produto")
             setPositiveButton("OK") { dialog, whith ->
-
+                prepareSearch(SearchType.NAME, editTextSearchProduct!!.text.toString())
             }
             setView(dialogLayout)
             show()
+        }
+
+    }
+
+
+    private fun speak() {
+        val mIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+        mIntent.putExtra(
+            RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+            RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
+        )
+        mIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
+        mIntent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Olá fale alguma coisa!")
+
+        try {
+            startActivityForResult(mIntent, REQUEST_CODE_SPEECH_INPUT)
+        } catch (ex: Exception) {
+            Toast.makeText(requireContext(), ex.message, Toast.LENGTH_SHORT).show()
+        }
+
+
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        when (requestCode) {
+
+            REQUEST_CODE_SPEECH_INPUT -> {
+                if (resultCode == Activity.RESULT_OK && null != data) {
+                    val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+                    // editTextSearchProduct!!.setText(result?.get(0))
+                    prepareSearch(SearchType.NAME, result?.get(0)!!)
+                    alert!!.dismiss()
+                }
+            }
         }
 
     }

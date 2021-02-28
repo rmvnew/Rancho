@@ -5,16 +5,18 @@ import java.util.*
 
 object DateUtil {
 
-    fun getCurrentDate():String{
-        val currentDateTime = Date()
+    fun getCurrentDate(cal:Calendar?):String{
+       // val currentDateTime = Date()
         val brazilianFormat = SimpleDateFormat("dd/MM/yyyy")
-        return brazilianFormat.format(currentDateTime)
+        val newDate = cal?.time ?: Date()
+        return brazilianFormat.format(newDate)
     }
 
-    fun getCurrentTime():String{
-        val currentDateTime = Date()
+    fun getCurrentTime(cal: Calendar?):String{
+       // val currentDateTime = Date()
         val brazilianFormat = SimpleDateFormat("HH:mm:ss")
-        return brazilianFormat.format(currentDateTime)
+        val newDate = cal?.time ?: Date()
+        return brazilianFormat.format(newDate)
     }
 
 }
