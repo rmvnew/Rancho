@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/AZUL_STEEL_BLUE4"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.puchases.ListPurchasesFragment">
-
 
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardListPurchases"
         android:layout_width="match_parent"
-        app:cardCornerRadius="0dp"
         android:layout_height="120dp"
         android:backgroundTint="@color/AZUL_STEEL_BLUE4"
+        app:cardCornerRadius="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
+        app:layout_constraintTop_toTopOf="parent">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -61,9 +60,9 @@
                 android:layout_marginRight="8dp"
                 android:layout_marginBottom="8dp"
                 android:src="@drawable/ic_help"
-                app:tint="@color/BRANCO"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:tint="@color/BRANCO" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -81,7 +80,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btnAddNewProduct"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider2">
@@ -105,63 +104,55 @@
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btnAddNewProduct"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="@color/AZUL_STEEL_BLUE"
-        android:clickable="true"
-        android:src="@drawable/ic_baseline_add_24"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:tint="@color/white" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btnSearchShopping"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:backgroundTint="@color/AZUL_STEEL_BLUE"
-        android:clickable="true"
-        android:src="@drawable/ic_baseline_date_range_24"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:tint="@color/white" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/BRANCO"
-        android:text="Adicionar"
-        android:textStyle="bold|italic"
-        app:layout_constraintBottom_toTopOf="@+id/btnAddNewProduct"
-        app:layout_constraintEnd_toEndOf="@+id/btnAddNewProduct"
-        app:layout_constraintStart_toStartOf="@+id/btnAddNewProduct" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/BRANCO"
-        android:text="Buscar"
-        android:textStyle="bold|italic"
-        app:layout_constraintBottom_toTopOf="@+id/btnSearchShopping"
-        app:layout_constraintEnd_toEndOf="@+id/btnSearchShopping"
-        app:layout_constraintStart_toStartOf="@+id/btnSearchShopping" />
-
     <View
         android:id="@+id/divider2"
         android:layout_width="match_parent"
         android:layout_height="5dp"
         android:layout_marginTop="8dp"
-        android:backgroundTint="@color/BRANCO"
         android:background="?android:attr/listDivider"
+        android:backgroundTint="@color/BRANCO"
         app:layout_constraintTop_toBottomOf="@+id/cardListPurchases" />
+
+
+    <Button
+        android:id="@+id/btnAddNewProduct"
+        style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="@color/AZUL_STEEL_BLUE2"
+        android:text="Adicionar"
+        android:textColor="@color/BRANCO"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnSearchShopping"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:tint="@color/white" />
+
+    <Button
+        android:id="@+id/btnSearchShopping"
+        style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="@color/AZUL_STEEL_BLUE2"
+        android:text="Buscar"
+        android:textColor="@color/BRANCO"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnAddNewProduct"
+        app:tint="@color/white" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
