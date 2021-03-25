@@ -7,6 +7,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="grey_white">#DDDDDD</color>
     <color name="button_red">#CC2222</color>
     <color name="button_red_dark">#882222</color>
     <color name="Azul_escuro">#191970</color>
@@ -23,7 +24,8 @@
     <color name="AZUL_DEEP_SKYE">#00BFFF</color>
     <color name="AZUL_STEEL_BLUE">#4682B4</color>
     <color name="AZUL_STEEL_BLUE2">#2C506E</color>
-    <color name="AZUL_STEEL_BLUE3">#294047</color>
+    <color name="AZUL_STEEL_BLUE3">#203138</color>
+    <color name="AZUL_STEEL_BLUE4">#172529</color>
     <color name="CINZA_CLARO">#C0C0C0</color>
     <color name="CINZA_FORTE">#808080</color>
     <color name="CINZA_FORTE_DARK">#4F4F4F</color>

@@ -41,8 +41,9 @@
         android:layout_marginRight="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_speak_mod"
-        tools:ignore="VectorDrawableCompat" />
+        app:srcCompat="@drawable/ic_baseline_mic_40"
+        tools:ignore="VectorDrawableCompat"
+        app:tint="@color/PRETO" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

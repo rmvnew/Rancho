@@ -19,9 +19,9 @@
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardListPurchases"
             android:layout_width="match_parent"
-            app:cardCornerRadius="0dp"
             android:layout_height="120dp"
             android:backgroundTint="@color/AZUL_STEEL_BLUE3"
+            app:cardCornerRadius="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -97,8 +97,8 @@
                 android:id="@+id/editProductQuantity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Qtde"
                 android:digits="0123456789.,"
+                android:hint="Qtde"
                 android:imeOptions="actionDone"
                 android:inputType="numberDecimal" />
 
@@ -132,17 +132,6 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <CheckBox
-            android:id="@+id/cbProductDone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
-            android:text="Concluído"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/infoProductValue" />
-
         <Button
             android:id="@+id/btnAddProduct"
             style="@style/Widget.MaterialComponents.Button.Icon"
@@ -150,52 +139,36 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="4dp"
-            android:layout_marginRight="4dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
             android:text="Salvar"
-            android:textSize="7sp"
+            android:textSize="16sp"
             app:icon="@drawable/ic_baseline_check_24"
-            app:layout_constraintEnd_toStartOf="@+id/btnUpdateProduct"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cbProductDone"
-            app:tint="@color/white" />
-
-
-        <Button
-            android:id="@+id/btnUpdateProduct"
-            style="@style/Widget.MaterialComponents.Button.Icon"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginEnd="4dp"
-            android:layout_marginRight="4dp"
-            android:text="Atualizar"
-            android:textSize="7sp"
-            app:icon="@drawable/ic_baseline_update_24"
-            app:layout_constraintBaseline_toBaselineOf="@+id/btnAddProduct"
             app:layout_constraintEnd_toStartOf="@+id/btnDeleteProduct"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/btnAddProduct" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/infoProductQuantity"
+            app:tint="@color/white" />
+
 
         <Button
             android:id="@+id/btnDeleteProduct"
             style="@style/Widget.MaterialComponents.Button.Icon"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginLeft="4dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
-            android:text="remover"
-            android:textSize="7sp"
+            android:backgroundTint="@color/button_red_dark"
+            android:text="deletar"
+            android:textSize="16sp"
             app:icon="@drawable/ic_baseline_delete_24"
-            app:layout_constraintBaseline_toBaselineOf="@+id/btnUpdateProduct"
+            app:layout_constraintBaseline_toBaselineOf="@+id/btnAddProduct"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/btnUpdateProduct" />
+            app:layout_constraintStart_toEndOf="@+id/btnAddProduct" />
 
         <ImageView
             android:id="@+id/btnSpeak"
@@ -206,13 +179,12 @@
             android:layout_marginRight="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cardListPurchases"
-            app:srcCompat="@drawable/ic_speak_mod"
+            app:srcCompat="@drawable/ic_baseline_mic_40"
             app:tint="@color/AZUL_STEEL_BLUE3"
             tools:ignore="VectorDrawableCompat" />
 
         <Spinner
             android:id="@+id/sp_type"
-            android:spinnerMode="dialog"
             android:layout_width="match_parent"
             android:layout_height="27dp"
             android:layout_marginStart="16dp"
@@ -220,6 +192,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
+            android:spinnerMode="dialog"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/infoProductName" />

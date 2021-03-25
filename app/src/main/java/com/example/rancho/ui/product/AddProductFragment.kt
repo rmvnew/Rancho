@@ -16,6 +16,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
@@ -31,6 +32,7 @@ import com.orhanobut.hawk.Hawk
 import dominando.android.testeproduct.util.ShowMessage
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -41,12 +43,16 @@ class AddProductFragment : Fragment() {
     private val binding: FragmentAddProductBinding get() = _binding!!
     private lateinit var productViewModel: ProductViewModel
     private var id_shopping: Int? = null
+    private var id_product: Int = 0
     private var product: Product? = null
+    private var addToCart: Boolean = false
     private val REQUEST_CODE_SPEECH_INPUT = 100
     private var confSpeech: Boolean? = null
     private lateinit var speechManager: SpeechManager
     private var typeOfMeasure: String? = null
     private var valueSpType: Int? = null
+    private var btnYes: Button? = null
+    private var btnNo: Button? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -83,17 +89,18 @@ class AddProductFragment : Fragment() {
         binding.apply {
 
             product?.let {
+                id_product = product!!.id
                 editProductName.setText(product!!.productName)
-//                editProductQuantity.setText(product!!.productQuantity.toString())
+
                 if (product!!.productValue != 0.0) {
                     editProductValue.setText(product!!.productValue.toString())
                 } else {
                     editProductValue.setText("")
                 }
-                cbProductDone.isChecked = product!!.productDone
-                Log.i("res", "==>>" + product!!.typeOfMeasure)
+                addToCart = product!!.productDone
 
-                when(product!!.typeOfMeasure){
+                Log.i("res", "==>>" + product!!.typeOfMeasure)
+                when (product!!.typeOfMeasure) {
                     "Und" -> {
                         valueSpType = 0
                         editProductQuantity.setText(product!!.productQuantity.toInt().toString())
@@ -120,63 +127,9 @@ class AddProductFragment : Fragment() {
 
             btnAddProduct.setOnClickListener {
 
-                if (editProductName.text.toString().isNotEmpty()) {
-
-                    if (product == null) {
-                        val prod = getProduct()
-
-                        GlobalScope.launch {
-
-                            ProductDatabase(requireContext()).getProductDao().addProduct(prod)
-
-                        }
-                        notifyIncludedProduct(prod)
-                        productViewModel!!.setAction("add")
-                        animationOk()
-                        //findNavController().popBackStack()
-                    } else {
-                        ShowMessage.showToast(
-                            "Este produto já foi salvo!!\nDisponivel: Atualizar e/ou deletar",
-                            requireContext()
-                        )
-                    }
-
-                } else {
-                    ShowMessage.showToast("Informe o nome do produto", requireContext())
-                }
+                checkSave()
 
             }
-
-            btnUpdateProduct.setOnClickListener {
-
-                if (editProductName.text.toString().isNotEmpty()) {
-                    if (product != null) {
-                        val prod = getProduct()
-                        prod.id = product!!.id
-
-                        GlobalScope.launch {
-
-                            ProductDatabase(requireContext()).getProductDao().updateProduct(prod)
-
-                        }
-                        Thread.sleep(1000)
-                        productViewModel!!.setAction("update")
-                        product = null
-                        findNavController().popBackStack()
-
-                    } else {
-                        ShowMessage.showToast(
-                            "O produto não esta salvo,\n Impossível atualizar",
-                            requireContext()
-                        )
-                    }
-                } else {
-                    ShowMessage.showToast("Informe o nome do produto", requireContext())
-                }
-
-
-            }
-
 
             btnDeleteProduct.setOnClickListener {
                 if (editProductName.text.toString().isNotEmpty()) {
@@ -226,6 +179,7 @@ class AddProductFragment : Fragment() {
 
     }
 
+
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun notifyIncludedProduct(prod: Product) {
 
@@ -248,8 +202,103 @@ class AddProductFragment : Fragment() {
 
         }
 
+    }
+
+
+    private fun checkFields(): Boolean {
+
+        var res = false
+
+        binding.apply {
+
+            if (!editProductQuantity.text.isNullOrBlank() && !editProductValue.text.isNullOrBlank()) {
+                res = true
+            }
+
+        }
+
+        return res
+    }
+
+
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    private fun checkSave() {
+
+        if (checkFields()) {
+            val builder = AlertDialog.Builder(requireContext())
+            val inflater: LayoutInflater = layoutInflater
+            val dialogLayout: View = inflater.inflate(R.layout.item_add_to_cart, null)
+            builder.setView(dialogLayout)
+            val alert = builder.show()
+            btnYes = dialogLayout.findViewById<Button>(R.id.btnYes)
+            btnNo = dialogLayout.findViewById<Button>(R.id.btnNo)
+
+            btnYes!!.setOnClickListener {
+
+                addToCart = true
+                save()
+                alert.dismiss()
+
+            }
+
+
+            btnNo!!.setOnClickListener {
+
+                addToCart = false
+                save()
+                alert.dismiss()
+
+            }
+        } else {
+            save()
+        }
+
 
     }
+
+
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    private fun save() {
+
+        var isSaving = false
+
+        binding.apply {
+
+            if (editProductName.text.toString().isNotEmpty()) {
+
+                val prod = getProduct()
+
+                GlobalScope.launch {
+
+                    if (id_product == 0) {
+                        isSaving = true
+                        ProductDatabase(requireContext()).getProductDao().addProduct(prod)
+
+                    } else {
+                        prod.id = product!!.id
+                        ProductDatabase(requireContext()).getProductDao()
+                            .updateProduct(prod)
+                    }
+                }
+
+                Thread.sleep(300)
+
+                if (isSaving) {
+                    notifyIncludedProduct(prod)
+                    productViewModel!!.setAction("add")
+                    animationOk()
+                } else {
+                    findNavController().popBackStack()
+                }
+
+            } else {
+                ShowMessage.showToast("Informe o nome do produto", requireContext())
+            }
+
+        }
+
+    }
+
 
     private fun animationOk() {
 
@@ -282,7 +331,7 @@ class AddProductFragment : Fragment() {
                 } else {
                     editProductValue.text.toString().replace(",", ".").toDouble()
                 },
-                cbProductDone.isChecked,
+                addToCart,
                 typeOfMeasure ?: "Und"
             )
 
@@ -351,20 +400,23 @@ class AddProductFragment : Fragment() {
             ) {
 
                 typeOfMeasure = binding.spType.selectedItem.toString()
-                when(typeOfMeasure){
+                when (typeOfMeasure) {
                     "Und" -> {
                         binding.editProductQuantity.inputType = InputType.TYPE_CLASS_NUMBER
                     }
                     "Kg" -> {
                         binding.editProductQuantity.inputType =
                             (InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL or InputType.TYPE_NUMBER_FLAG_SIGNED)
-                        binding.editProductQuantity.setKeyListener(DigitsKeyListener.getInstance("0123456789.,"))
+                        binding.editProductQuantity.setKeyListener(
+                            DigitsKeyListener.getInstance(
+                                "0123456789.,"
+                            )
+                        )
                     }
                 }
 
             }
         }
     }
-
 
 }

@@ -33,15 +33,13 @@ import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
-
-
 class ListPurchasesFragment : Fragment() {
 
     private var _binding: FragmentListPurchasesBinding? = null
     private val binding: FragmentListPurchasesBinding get() = _binding!!
     private lateinit var viewModel: ListPurchasesViewModel
     private var cal = Calendar.getInstance()
-    lateinit var purchase: Shopping
+    private lateinit var purchase: Shopping
     private val REQUEST_CODE_SPEECH_INPUT = 100
     private var editTextNewPurchase: EditText? = null
     private var cbPurchase: CheckBox? = null
@@ -58,8 +56,6 @@ class ListPurchasesFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(ListPurchasesViewModel::class.java)
         ViewModelInstance.setPurchaseViewModel(viewModel)
         (activity as MainActivity).supportActionBar?.hide()
-
-
 
         return binding.root
     }
@@ -93,7 +89,7 @@ class ListPurchasesFragment : Fragment() {
 
             btnHelp.setOnClickListener {
 
-                showPDF()
+
 
             }
 
@@ -206,25 +202,25 @@ class ListPurchasesFragment : Fragment() {
     }
 
 
-    private fun showPDF(){
-        val builder = AlertDialog.Builder(requireContext())
-        val inflater: LayoutInflater = layoutInflater
-        val dialogLayout: View = inflater.inflate(R.layout.item_help_pdf, null)
-        var pdfView = dialogLayout.findViewById<PDFView>(R.id.PDFView)
-
-        pdfView.fromAsset("meu_rancho.pdf").load()
-
-        with(builder) {
-            setTitle("LEIA-ME")
-            setPositiveButton("OK") { dialog, whith ->
-
-
-            }
-            setView(dialogLayout)
-            show()
-        }
-
-    }
+//    private fun showPDF(){
+//        val builder = AlertDialog.Builder(requireContext())
+//        val inflater: LayoutInflater = layoutInflater
+//        val dialogLayout: View = inflater.inflate(R.layout.item_help_pdf, null)
+//        var pdfView = dialogLayout.findViewById<PDFView>(R.id.PDFView)
+//
+//        pdfView.fromAsset("meu_rancho.pdf").load()
+//
+//        with(builder) {
+//            setTitle("LEIA-ME")
+//            setPositiveButton("OK") { dialog, whith ->
+//
+//
+//            }
+//            setView(dialogLayout)
+//            show()
+//        }
+//
+//    }
 
 
     private fun savePurchase(name: String, isActive: Boolean) {

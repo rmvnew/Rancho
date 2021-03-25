@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/AZUL_STEEL_BLUE4"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.puchases.ListPurchasesFragment">
 
@@ -12,7 +13,7 @@
         android:layout_width="match_parent"
         app:cardCornerRadius="0dp"
         android:layout_height="120dp"
-        android:backgroundTint="@color/AZUL_STEEL_BLUE3"
+        android:backgroundTint="@color/AZUL_STEEL_BLUE4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" >
@@ -31,6 +32,7 @@
                 android:text="Lista de produtos"
                 android:textColor="@color/BRANCO"
                 android:textSize="35sp"
+                app:layout_constraintBottom_toTopOf="@+id/divider3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -86,7 +88,7 @@
                 android:fontFamily="@font/stable"
                 android:text="0/0"
                 android:textColor="@color/AZUL_DEEP_SKYE"
-                android:textSize="18sp"
+                android:textSize="15sp"
                 android:textStyle="bold|italic"
                 app:layout_constraintBaseline_toBaselineOf="@+id/textView10"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -175,14 +177,14 @@
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardListPurchases">
+        app:layout_constraintTop_toBottomOf="@+id/divider4">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerProduct"
@@ -220,7 +222,7 @@
         android:id="@+id/labelAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/CINZA_CLARO"
+        android:textColor="@color/BRANCO"
         android:text="Adicionar"
         android:textStyle="bold|italic"
         app:layout_constraintBottom_toTopOf="@+id/btnAddNewProduct"
@@ -245,12 +247,20 @@
         android:id="@+id/labelSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/CINZA_CLARO"
+        android:textColor="@color/BRANCO"
         android:text="Buscar"
         android:textStyle="bold|italic"
         app:layout_constraintBottom_toTopOf="@+id/btnSearchProduct"
         app:layout_constraintEnd_toEndOf="@+id/btnSearchProduct"
         app:layout_constraintStart_toStartOf="@+id/btnSearchProduct" />
+
+    <View
+        android:id="@+id/divider4"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="?android:attr/listDivider"
+        android:backgroundTint="@color/BRANCO"
+        app:layout_constraintTop_toBottomOf="@+id/cardListPurchases" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
